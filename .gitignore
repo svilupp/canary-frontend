@@ -19,3 +19,4 @@ worker-configuration.d.ts
 
 # Logs
 public/_logs.txt
+.gemini-clipboard

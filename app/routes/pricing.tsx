@@ -17,7 +17,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function Pricing() {
   return (
     <PageLayout>
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
+      <div className="w-full container mx-auto px-4 py-16 max-w-4xl">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="inline-block bg-yellow-400 text-coal-black px-6 py-2 rounded-full font-display text-sm uppercase font-bold mb-6">
