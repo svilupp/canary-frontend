@@ -185,14 +185,34 @@ curl http://localhost:YOUR_PORT/_logs.txt`}
         <div className="mb-8">
           <h3 className="text-xl font-bold mb-3 uppercase">Step 4: Deploy the Flock</h3>
 
-          <div className="bg-gray-900 p-4 rounded mb-4">
-            <pre className="text-sm text-gray-300">
-{`# Run Canary against your instrumented app
-npm run qa --url http://localhost:YOUR_PORT
+          <p className="mb-4">
+            Once your application's logging is accessible, you can run Canary to audit your page. You can run tests locally for development or in the cloud for more comprehensive, parallel testing.
+          </p>
 
-# Or against staging/production
-npm run qa --url https://staging.example.com`}
-            </pre>
+          <div className="mb-6">
+            <h4 className="font-bold text-lg mb-2 uppercase text-yellow-500">Local Audit (Development)</h4>
+            <p className="mb-2 text-sm">
+              Use the <code>--local</code> flag to run tests on your local machine using a real Chrome browser window. No Browserbase account? No problem! This mode is great for local development and debugging.
+            </p>
+            <div className="bg-gray-900 p-4 rounded">
+              <pre className="text-sm text-gray-300">
+{`# Run a local audit against your dev server
+npm run qa -- --url http://localhost:YOUR_PORT --local`}
+              </pre>
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <h4 className="font-bold text-lg mb-2 uppercase text-yellow-500">Cloud Audit (Staging/Production)</h4>
+            <p className="mb-2 text-sm">
+              For CI/CD or production environments, run Canary against Browserbase. Without the <code>--local</code> flag, it will all run in parallel against Browserbase sessions for speed and scale.
+            </p>
+            <div className="bg-gray-900 p-4 rounded">
+              <pre className="text-sm text-gray-300">
+{`# Run a parallel cloud audit against your live app
+npm run qa -- --url https://staging.example.com`}
+              </pre>
+            </div>
           </div>
         </div>
 
