@@ -1,0 +1,209 @@
+---
+title = "Primary Action Button Testing"
+version = "1.0.0"
+description = "Test that main action buttons work correctly (submit, save, checkout, etc.)"
+taskId = "test-primary-actions"
+severity = "CRITICAL"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Primary Action Button Testing
+
+**Task ID:** `test-primary-actions`
+**Severity:** CRITICAL
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Test all primary action buttons to ensure they work correctly and don't cause errors.
+
+---
+
+## What to Do
+
+1. **Identify primary action buttons:**
+   - Submit, Save, Buy, Checkout, Sign Up, Get Started, Contact, etc.
+   - These are the main CTAs (Call To Action) on the page
+   - If none exist, return success with `hasPrimaryActions: false`
+
+2. **For EACH primary action button:**
+   - Click the button
+   - Observe what happens:
+     - Does it navigate to a new page?
+     - Does it submit a form?
+     - Does it show an error message (e.g., "Please fill required fields")?
+     - Does it show a success message?
+     - Does nothing happen (BUG)?
+   - Record the result
+   - Return to starting state if needed
+
+3. **Check for errors:**
+   - Console errors after clicking?
+   - Blank page?
+   - 404/500 errors?
+   - JavaScript exceptions?
+
+---
+
+## Definition of Done
+
+You've tested:
+- ✅ Every primary action button found
+- ✅ Each button's behavior recorded (what happened when clicked)
+- ✅ Any errors/failures documented
+- ✅ Confirmed buttons are functional (do something when clicked)
+
+**Note:** A button showing validation errors like "Email required" is NOT a failure - that's expected behavior. Only report failure if button is completely broken (does nothing, throws error, crashes page).
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "hasPrimaryActions": true,
+  "totalTested": 2,
+  "workingButtons": 2,
+  "brokenButtons": 0,
+  "results": [
+    {
+      "buttonText": "Contact Us",
+      "worked": true,
+      "behavior": "Navigated to contact page at /contact",
+      "error": null
+    },
+    {
+      "buttonText": "Subscribe",
+      "worked": true,
+      "behavior": "Showed validation error: 'Email is required' (expected behavior)",
+      "error": null
+    }
+  ],
+  "failures": []
+}
+```
+
+**If button is broken:**
+```json
+{
+  "success": false,
+  "hasPrimaryActions": true,
+  "totalTested": 2,
+  "workingButtons": 1,
+  "brokenButtons": 1,
+  "results": [
+    {
+      "buttonText": "Submit",
+      "worked": true,
+      "behavior": "Form submitted successfully",
+      "error": null
+    },
+    {
+      "buttonText": "Get Started",
+      "worked": false,
+      "behavior": "Button clicked but nothing happened - no response",
+      "error": "Button appears broken - no action on click"
+    }
+  ],
+  "failures": ["Get Started: Button appears broken - no action on click"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if ALL primary buttons work, `false` if ANY are broken
+- **hasPrimaryActions**: `true` if page has primary action buttons
+- **totalTested**: Count of primary action buttons tested
+- **workingButtons**: Count of buttons that worked
+- **brokenButtons**: Count of buttons that are broken
+- **results**: Array of test results for each button
+  - **buttonText**: Text of the button
+  - **worked**: `true` if button does something, `false` if completely broken
+  - **behavior**: Description of what happened when clicked
+  - **error**: Error message if broken, `null` if worked
+- **failures**: Array of failure descriptions
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: All buttons work
+```json
+{
+  "success": true,
+  "hasPrimaryActions": true,
+  "totalTested": 3,
+  "workingButtons": 3,
+  "brokenButtons": 0,
+  "results": [
+    {"buttonText": "Buy Now", "worked": true, "behavior": "Navigated to checkout page", "error": null},
+    {"buttonText": "Sign Up", "worked": true, "behavior": "Showed validation: 'Email required' (expected)", "error": null},
+    {"buttonText": "Contact", "worked": true, "behavior": "Opened contact modal dialog", "error": null}
+  ],
+  "failures": []
+}
+```
+
+### Example 2: No primary actions on page
+```json
+{
+  "success": true,
+  "hasPrimaryActions": false,
+  "totalTested": 0,
+  "workingButtons": 0,
+  "brokenButtons": 0,
+  "results": [],
+  "failures": []
+}
+```
+
+### Example 3: One broken button
+```json
+{
+  "success": false,
+  "hasPrimaryActions": true,
+  "totalTested": 2,
+  "workingButtons": 1,
+  "brokenButtons": 1,
+  "results": [
+    {"buttonText": "Save", "worked": true, "behavior": "Saved data and showed success message", "error": null},
+    {"buttonText": "Delete", "worked": false, "behavior": "Console error: TypeError - function undefined", "error": "JavaScript error on click"}
+  ],
+  "failures": ["Delete: JavaScript error on click"]
+}
+```
+
+---
+
+## Important Notes
+
+- **What counts as "working":**
+  - Button does SOMETHING when clicked
+  - Navigates, submits, shows message, opens modal
+  - Even validation errors like "Email required" count as working
+
+- **What counts as "broken":**
+  - Button does NOTHING when clicked (no response)
+  - JavaScript error/exception thrown
+  - Page crashes or freezes
+  - 500 server error
+
+- **Don't worry about correctness:**
+  - We're testing if buttons WORK, not if they do the RIGHT thing
+  - If "Buy Now" opens the wrong page, that's still "working" for this test
+
+- **Primary buttons are CRITICAL:**
+  - These are the main user actions
+  - If these don't work, the site is broken
+
+---
+
+## Time Estimate
+Expected completion: 30-60 seconds (depends on number of buttons)

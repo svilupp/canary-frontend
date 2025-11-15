@@ -1,0 +1,212 @@
+---
+title = "Mobile Navigation Testing"
+version = "1.0.0"
+description = "Test mobile-specific navigation patterns (hamburger menu)"
+taskId = "test-mobile-navigation"
+severity = "HIGH"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Mobile Navigation Testing
+
+**Task ID:** `test-mobile-navigation`
+**Severity:** HIGH
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Test mobile-specific navigation (hamburger menu) to ensure it works correctly.
+
+---
+
+## What to Do
+
+1. **Set viewport to mobile:**
+   - Resize to 375x667 (mobile size)
+   - Refresh the page
+
+2. **Check for mobile navigation:**
+   - Look for hamburger menu icon (☰ or three lines)
+   - If NO hamburger menu exists, check if regular navigation still works
+   - Some sites show same navigation on mobile (that's OK)
+
+3. **If hamburger menu exists:**
+   - Click the hamburger icon
+   - Check: Did menu open/slide out?
+   - Check: Can you see navigation links?
+   - Click a navigation link
+   - Check: Did it navigate correctly?
+   - Go back and close the menu
+   - Check: Did menu close?
+
+4. **If NO hamburger menu:**
+   - Check: Is regular navigation visible and usable on mobile?
+   - If yes, that's fine (report `hasMobileMenu: false, navigationWorks: true`)
+
+---
+
+## Definition of Done
+
+You've verified:
+- ✅ Checked for mobile-specific navigation
+- ✅ If hamburger menu exists, it opens/closes correctly
+- ✅ Navigation links work on mobile
+- ✅ User can navigate the site on mobile screen
+- ✅ Any issues documented
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "viewportSize": "375x667",
+  "hasMobileMenu": true,
+  "menuOpens": true,
+  "menuCloses": true,
+  "linksWork": true,
+  "navigationUsable": true,
+  "issues": []
+}
+```
+
+**If mobile menu broken:**
+```json
+{
+  "success": false,
+  "viewportSize": "375x667",
+  "hasMobileMenu": true,
+  "menuOpens": false,
+  "menuCloses": false,
+  "linksWork": false,
+  "navigationUsable": false,
+  "issues": ["Hamburger menu icon visible but clicking it does nothing"]
+}
+```
+
+**If no mobile menu but navigation works:**
+```json
+{
+  "success": true,
+  "viewportSize": "375x667",
+  "hasMobileMenu": false,
+  "menuOpens": null,
+  "menuCloses": null,
+  "linksWork": true,
+  "navigationUsable": true,
+  "issues": []
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if mobile navigation works, `false` if broken
+- **viewportSize**: Confirm viewport size tested (should be "375x667")
+- **hasMobileMenu**: `true` if hamburger menu exists, `false` if regular nav on mobile
+- **menuOpens**: `true` if hamburger menu opens, `null` if no mobile menu
+- **menuCloses**: `true` if menu can be closed, `null` if no mobile menu
+- **linksWork**: `true` if navigation links work (whether mobile menu or regular)
+- **navigationUsable**: `true` if user can navigate the site on mobile
+- **issues**: Array of specific problems found (empty if none)
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Hamburger menu works perfectly
+```json
+{
+  "success": true,
+  "viewportSize": "375x667",
+  "hasMobileMenu": true,
+  "menuOpens": true,
+  "menuCloses": true,
+  "linksWork": true,
+  "navigationUsable": true,
+  "issues": []
+}
+```
+
+### Example 2: No mobile menu, regular nav works
+```json
+{
+  "success": true,
+  "viewportSize": "375x667",
+  "hasMobileMenu": false,
+  "menuOpens": null,
+  "menuCloses": null,
+  "linksWork": true,
+  "navigationUsable": true,
+  "issues": []
+}
+```
+
+### Example 3: Hamburger menu broken
+```json
+{
+  "success": false,
+  "viewportSize": "375x667",
+  "hasMobileMenu": true,
+  "menuOpens": false,
+  "menuCloses": false,
+  "linksWork": false,
+  "navigationUsable": false,
+  "issues": ["Hamburger icon visible but does not open menu when clicked", "Navigation unusable on mobile"]
+}
+```
+
+### Example 4: Menu opens but can't close
+```json
+{
+  "success": false,
+  "viewportSize": "375x667",
+  "hasMobileMenu": true,
+  "menuOpens": true,
+  "menuCloses": false,
+  "linksWork": true,
+  "navigationUsable": false,
+  "issues": ["Menu opens correctly but has no close button - user stuck with menu open"]
+}
+```
+
+---
+
+## Important Notes
+
+- **What is a hamburger menu:**
+  - Icon with three horizontal lines (☰)
+  - Common on mobile to save space
+  - Opens/slides out full navigation menu
+
+- **Not all sites have hamburger menus:**
+  - Some sites show regular navigation on mobile
+  - That's fine if it works and is usable
+  - Just report `hasMobileMenu: false`
+
+- **What counts as "works":**
+  - Menu opens when hamburger clicked
+  - Navigation links are visible and clickable
+  - Menu can be closed (close button, back button, or clicking outside)
+  - User can navigate the site
+
+- **What counts as "broken":**
+  - Hamburger icon does nothing when clicked
+  - Menu opens but can't be closed (user stuck)
+  - Menu opens but links don't work
+  - Navigation completely unusable on mobile
+
+- **Mobile navigation is critical:**
+  - If users can't navigate on mobile, site is broken
+  - This is a HIGH severity test
+
+---
+
+## Time Estimate
+Expected completion: 20-30 seconds (if mobile menu exists), 10-15 seconds (if regular nav)

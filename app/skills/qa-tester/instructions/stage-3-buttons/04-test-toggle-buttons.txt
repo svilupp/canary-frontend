@@ -1,0 +1,215 @@
+---
+title = "Toggle Button Testing"
+version = "1.0.0"
+description = "Test toggle, expand/collapse, and show/hide buttons"
+taskId = "test-toggle-buttons"
+severity = "LOW"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Toggle Button Testing
+
+**Task ID:** `test-toggle-buttons`
+**Severity:** LOW
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Test toggle buttons (show/hide, expand/collapse, read more) to ensure they work correctly.
+
+---
+
+## What to Do
+
+1. **Identify toggle buttons:**
+   - Common examples: "Show More", "Read More", "Expand", "Collapse", "▼", "▶"
+   - Accordion buttons
+   - FAQ expand/collapse buttons
+   - "Show Details" / "Hide Details"
+   - If none exist, return success with `hasToggleButtons: false`
+
+2. **For EACH toggle button:**
+   - Note initial state (expanded or collapsed)
+   - Click the button
+   - Check: Did content show/hide?
+   - Check: Did button text/icon change? (e.g., "Show More" → "Show Less")
+   - Click again
+   - Check: Did it toggle back?
+   - Record the result
+
+---
+
+## Definition of Done
+
+You've tested:
+- ✅ Every toggle button found
+- ✅ Each button toggles content visibility
+- ✅ Button text/icon updates appropriately
+- ✅ Toggle works in both directions (expand AND collapse)
+- ✅ Any failures documented
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "hasToggleButtons": true,
+  "totalTested": 2,
+  "workingToggles": 2,
+  "brokenToggles": 0,
+  "results": [
+    {
+      "buttonText": "Show More",
+      "initialState": "collapsed",
+      "expandsCorrectly": true,
+      "collapsesCorrectly": true,
+      "buttonTextChanges": true,
+      "newButtonText": "Show Less",
+      "error": null
+    },
+    {
+      "buttonText": "FAQ Question 1",
+      "initialState": "collapsed",
+      "expandsCorrectly": true,
+      "collapsesCorrectly": true,
+      "buttonTextChanges": false,
+      "newButtonText": "FAQ Question 1",
+      "error": null
+    }
+  ],
+  "failures": []
+}
+```
+
+**If toggle is broken:**
+```json
+{
+  "success": false,
+  "hasToggleButtons": true,
+  "totalTested": 1,
+  "workingToggles": 0,
+  "brokenToggles": 1,
+  "results": [
+    {
+      "buttonText": "Expand Details",
+      "initialState": "collapsed",
+      "expandsCorrectly": false,
+      "collapsesCorrectly": false,
+      "buttonTextChanges": false,
+      "newButtonText": null,
+      "error": "Button clicked but content did not expand"
+    }
+  ],
+  "failures": ["Expand Details: Button clicked but content did not expand"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if ALL toggles work, `false` if ANY are broken
+- **hasToggleButtons**: `true` if page has toggle buttons
+- **totalTested**: Count of toggle buttons tested
+- **workingToggles**: Count of toggles that work correctly
+- **brokenToggles**: Count of broken toggles
+- **results**: Array of test results for each toggle
+  - **buttonText**: Text of the toggle button
+  - **initialState**: "expanded" or "collapsed" when first found
+  - **expandsCorrectly**: `true` if content shows when expanded
+  - **collapsesCorrectly**: `true` if content hides when collapsed
+  - **buttonTextChanges**: `true` if button text/icon changes on toggle
+  - **newButtonText**: New text after toggle (or same if unchanged)
+  - **error**: Error description if broken, `null` if worked
+- **failures**: Array of failure descriptions
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: All toggles work
+```json
+{
+  "success": true,
+  "hasToggleButtons": true,
+  "totalTested": 3,
+  "workingToggles": 3,
+  "brokenToggles": 0,
+  "results": [
+    {"buttonText": "Read More", "initialState": "collapsed", "expandsCorrectly": true, "collapsesCorrectly": true, "buttonTextChanges": true, "newButtonText": "Read Less", "error": null},
+    {"buttonText": "FAQ 1", "initialState": "collapsed", "expandsCorrectly": true, "collapsesCorrectly": true, "buttonTextChanges": false, "newButtonText": "FAQ 1", "error": null},
+    {"buttonText": "Show Details ▼", "initialState": "collapsed", "expandsCorrectly": true, "collapsesCorrectly": true, "buttonTextChanges": true, "newButtonText": "Hide Details ▲", "error": null}
+  ],
+  "failures": []
+}
+```
+
+### Example 2: No toggle buttons on page
+```json
+{
+  "success": true,
+  "hasToggleButtons": false,
+  "totalTested": 0,
+  "workingToggles": 0,
+  "brokenToggles": 0,
+  "results": [],
+  "failures": []
+}
+```
+
+### Example 3: Toggle expands but doesn't collapse
+```json
+{
+  "success": false,
+  "hasToggleButtons": true,
+  "totalTested": 1,
+  "workingToggles": 0,
+  "brokenToggles": 1,
+  "results": [
+    {"buttonText": "Show More", "initialState": "collapsed", "expandsCorrectly": true, "collapsesCorrectly": false, "buttonTextChanges": true, "newButtonText": "Show Less", "error": "Content expanded but clicking 'Show Less' did nothing"}
+  ],
+  "failures": ["Show More: Content expanded but clicking 'Show Less' did nothing"]
+}
+```
+
+---
+
+## Important Notes
+
+- **What is a toggle button:**
+  - Button that shows/hides content
+  - Often changes text/icon when clicked (▼ → ▲, "Show" → "Hide")
+  - Should work in both directions
+
+- **What counts as "working":**
+  - Content appears when expanded
+  - Content disappears when collapsed
+  - Button responds to both clicks
+
+- **What counts as "broken":**
+  - Button doesn't expand content
+  - Button expands but won't collapse
+  - Content shows but in wrong place
+  - JavaScript error on toggle
+
+- **Button text might not change:**
+  - Some toggles keep same text (e.g., FAQ questions)
+  - Icon might change instead (▶ → ▼)
+  - That's fine, not a failure
+
+- **Common patterns:**
+  - Accordions (FAQs)
+  - "Read More" / "Read Less"
+  - Expandable sections
+  - Collapsible menus
+
+---
+
+## Time Estimate
+Expected completion: 20-40 seconds (if toggles exist), 5-10 seconds (if none)

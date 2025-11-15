@@ -1,0 +1,216 @@
+---
+title = "Dropdown Menu Testing"
+version = "1.0.0"
+description = "Test dropdown/submenu interactions if present on the page"
+taskId = "test-dropdown-menus"
+severity = "MEDIUM"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Dropdown Menu Testing
+
+**Task ID:** `test-dropdown-menus`
+**Severity:** MEDIUM
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Test that dropdown menus (if present) open, close, and their links work correctly.
+
+---
+
+## What to Do
+
+1. **Check if dropdowns exist:**
+   - Look for navigation items with arrows (▼) or chevrons (›)
+   - Common in "Products", "Solutions", "Resources" menus
+   - If NO dropdowns exist, return success with `hasDropdowns: false`
+
+2. **For EACH dropdown menu found:**
+   - Hover over or click the parent item to open dropdown
+   - Check: Did submenu appear?
+   - Click one link from the submenu
+   - Check: Did it navigate correctly?
+   - Return to home page
+
+3. **Test dropdown close:**
+   - Open a dropdown
+   - Click elsewhere on page or press Escape
+   - Check: Did dropdown close?
+
+---
+
+## Definition of Done
+
+- ✅ You checked if dropdowns exist
+- ✅ If dropdowns exist, you tested opening/closing them
+- ✅ You tested at least one link from each dropdown
+- ✅ You recorded what worked and what didn't
+
+**If no dropdowns exist:** That's fine, just report `hasDropdowns: false` and `success: true`
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+**If no dropdowns exist:**
+```json
+{
+  "success": true,
+  "hasDropdowns": false,
+  "totalDropdowns": 0,
+  "dropdownsTested": [],
+  "allLinksWorked": true,
+  "failures": []
+}
+```
+
+**If dropdowns exist and work:**
+```json
+{
+  "success": true,
+  "hasDropdowns": true,
+  "totalDropdowns": 2,
+  "dropdownsTested": [
+    {
+      "parentText": "Products",
+      "opensCorrectly": true,
+      "closesCorrectly": true,
+      "subLinks": ["Analytics", "Dashboard", "Reports"],
+      "testedLink": "Analytics",
+      "linkWorked": true,
+      "error": null
+    },
+    {
+      "parentText": "Resources",
+      "opensCorrectly": true,
+      "closesCorrectly": true,
+      "subLinks": ["Docs", "Blog", "Help"],
+      "testedLink": "Docs",
+      "linkWorked": true,
+      "error": null
+    }
+  ],
+  "allLinksWorked": true,
+  "failures": []
+}
+```
+
+**If dropdown broken:**
+```json
+{
+  "success": false,
+  "hasDropdowns": true,
+  "totalDropdowns": 1,
+  "dropdownsTested": [
+    {
+      "parentText": "Products",
+      "opensCorrectly": false,
+      "closesCorrectly": false,
+      "subLinks": [],
+      "testedLink": null,
+      "linkWorked": false,
+      "error": "Dropdown did not open on hover or click"
+    }
+  ],
+  "allLinksWorked": false,
+  "failures": ["Products dropdown did not open"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if all dropdowns work OR no dropdowns exist, `false` if any dropdown fails
+- **hasDropdowns**: `true` if site has dropdown menus, `false` if not
+- **totalDropdowns**: Count of dropdown menus found
+- **dropdownsTested**: Array of test results for each dropdown
+  - **parentText**: Text of the parent menu item
+  - **opensCorrectly**: `true` if dropdown opens on hover/click
+  - **closesCorrectly**: `true` if dropdown closes when clicking away
+  - **subLinks**: Array of submenu link texts
+  - **testedLink**: Which submenu link you clicked to test
+  - **linkWorked**: `true` if the submenu link navigated correctly
+  - **error**: Error description if something failed
+- **allLinksWorked**: `true` if all tested submenu links worked
+- **failures**: Array of failure descriptions
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: No dropdowns (common for simple sites)
+```json
+{
+  "success": true,
+  "hasDropdowns": false,
+  "totalDropdowns": 0,
+  "dropdownsTested": [],
+  "allLinksWorked": true,
+  "failures": []
+}
+```
+
+### Example 2: Dropdowns work perfectly
+```json
+{
+  "success": true,
+  "hasDropdowns": true,
+  "totalDropdowns": 1,
+  "dropdownsTested": [
+    {
+      "parentText": "Products",
+      "opensCorrectly": true,
+      "closesCorrectly": true,
+      "subLinks": ["Analytics", "Dashboard", "API"],
+      "testedLink": "Dashboard",
+      "linkWorked": true,
+      "error": null
+    }
+  ],
+  "allLinksWorked": true,
+  "failures": []
+}
+```
+
+### Example 3: Dropdown opens but link broken
+```json
+{
+  "success": false,
+  "hasDropdowns": true,
+  "totalDropdowns": 1,
+  "dropdownsTested": [
+    {
+      "parentText": "Resources",
+      "opensCorrectly": true,
+      "closesCorrectly": true,
+      "subLinks": ["Blog", "Docs"],
+      "testedLink": "Docs",
+      "linkWorked": false,
+      "error": "Docs link returned 404 Not Found"
+    }
+  ],
+  "allLinksWorked": false,
+  "failures": ["Resources > Docs link returned 404"]
+}
+```
+
+---
+
+## Important Notes
+
+- **Not all sites have dropdowns:** If none exist, that's not a failure
+- **How to detect dropdowns:** Look for ▼ arrows, chevrons, or items that expand on hover
+- **Opening methods:** Try both hover AND click - some dropdowns use hover, some use click
+- **Don't test every submenu link:** Just test one from each dropdown to verify it works
+- **Mobile vs Desktop:** On mobile, dropdowns often work differently (hamburger menu)
+
+---
+
+## Time Estimate
+Expected completion: 20-40 seconds (if dropdowns exist), 5-10 seconds (if none)

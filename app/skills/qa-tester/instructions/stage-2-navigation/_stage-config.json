@@ -1,0 +1,56 @@
+{
+  "stageName": "Navigation Testing",
+  "stageNumber": 2,
+  "description": "Verify all navigation elements work correctly (links, logo, menus)",
+  "targetUrl": "https://buy-time-978217061957.us-west1.run.app/",
+  "microTasks": [
+    {
+      "id": "discover-nav-elements",
+      "name": "Navigation Discovery",
+      "file": "01-discover-nav-elements.txt",
+      "severity": "INFO",
+      "terminateOnFailure": false,
+      "maxSteps": 5,
+      "description": "Find all navigation elements (header, footer, menus)"
+    },
+    {
+      "id": "test-header-nav",
+      "name": "Header Navigation Testing",
+      "file": "02-test-header-nav.txt",
+      "severity": "HIGH",
+      "terminateOnFailure": false,
+      "maxSteps": 15,
+      "description": "Click each header navigation link and verify it works"
+    },
+    {
+      "id": "test-logo-link",
+      "name": "Logo Link Testing",
+      "file": "03-test-logo-link.txt",
+      "severity": "HIGH",
+      "terminateOnFailure": false,
+      "maxSteps": 5,
+      "description": "Verify logo click returns to home page"
+    },
+    {
+      "id": "test-footer-nav",
+      "name": "Footer Navigation Testing",
+      "file": "04-test-footer-nav.txt",
+      "severity": "MEDIUM",
+      "terminateOnFailure": false,
+      "maxSteps": 10,
+      "description": "Click each footer link and verify it works"
+    },
+    {
+      "id": "test-dropdown-menus",
+      "name": "Dropdown Menu Testing",
+      "file": "05-test-dropdown-menus.txt",
+      "severity": "MEDIUM",
+      "terminateOnFailure": false,
+      "maxSteps": 12,
+      "description": "Test dropdown/submenu interactions if present"
+    }
+  ],
+  "expectedDuration": "2-3 minutes",
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-15"
+}

@@ -1,0 +1,178 @@
+---
+title = "Mobile Viewport Testing"
+version = "1.0.0"
+description = "Test website at mobile viewport (375x667) to verify content is visible and usable"
+taskId = "test-mobile-viewport"
+severity = "HIGH"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Mobile Viewport Testing
+
+**Task ID:** `test-mobile-viewport`
+**Severity:** HIGH
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Verify the website works correctly on mobile devices by testing at mobile viewport size.
+
+---
+
+## What to Do
+
+1. **Set viewport to mobile size:**
+   - Resize browser to 375x667 pixels (iPhone SE size)
+   - This is a common small mobile screen
+   - Refresh the page
+
+2. **Check if content is visible:**
+   - Can you see the main content without horizontal scrolling?
+   - Is text readable (not too small)?
+   - Are images scaled appropriately (not cut off)?
+
+3. **Check layout issues:**
+   - Is content stacked vertically (not side-by-side)?
+   - Are buttons/links large enough to tap (not tiny)?
+   - Is there horizontal overflow (content wider than screen)?
+
+4. **Test basic interaction:**
+   - Try scrolling - does it work smoothly?
+   - Try clicking a button - is it tappable?
+
+---
+
+## Definition of Done
+
+You've verified:
+- ✅ Page loaded at mobile viewport (375x667)
+- ✅ Content is visible without horizontal scrolling
+- ✅ Text is readable
+- ✅ Layout adapts to narrow screen
+- ✅ No critical visual issues
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "viewportSize": "375x667",
+  "contentVisible": true,
+  "textReadable": true,
+  "noHorizontalScroll": true,
+  "layoutAdapts": true,
+  "buttonsUsable": true,
+  "issues": []
+}
+```
+
+**If issues found:**
+```json
+{
+  "success": false,
+  "viewportSize": "375x667",
+  "contentVisible": true,
+  "textReadable": false,
+  "noHorizontalScroll": false,
+  "layoutAdapts": true,
+  "buttonsUsable": true,
+  "issues": [
+    "Text is too small to read comfortably",
+    "Horizontal scrolling required to see full content"
+  ]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if site works well on mobile, `false` if critical issues
+- **viewportSize**: Confirm viewport size tested (should be "375x667")
+- **contentVisible**: `true` if main content is visible
+- **textReadable**: `true` if text is large enough to read
+- **noHorizontalScroll**: `true` if no horizontal scrolling needed
+- **layoutAdapts**: `true` if layout changed for mobile (stacked, not side-by-side)
+- **buttonsUsable**: `true` if buttons are large enough to tap
+- **issues**: Array of specific problems found (empty if none)
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Mobile works perfectly
+```json
+{
+  "success": true,
+  "viewportSize": "375x667",
+  "contentVisible": true,
+  "textReadable": true,
+  "noHorizontalScroll": true,
+  "layoutAdapts": true,
+  "buttonsUsable": true,
+  "issues": []
+}
+```
+
+### Example 2: Horizontal scrolling required (bad)
+```json
+{
+  "success": false,
+  "viewportSize": "375x667",
+  "contentVisible": true,
+  "textReadable": true,
+  "noHorizontalScroll": false,
+  "layoutAdapts": false,
+  "buttonsUsable": true,
+  "issues": ["Desktop layout showing on mobile - requires horizontal scrolling", "Layout not responsive"]
+}
+```
+
+### Example 3: Text too small
+```json
+{
+  "success": false,
+  "viewportSize": "375x667",
+  "contentVisible": true,
+  "textReadable": false,
+  "noHorizontalScroll": true,
+  "layoutAdapts": true,
+  "buttonsUsable": false,
+  "issues": ["Text size is too small - appears to be 8px or less", "Buttons are too small to tap accurately"]
+}
+```
+
+---
+
+## Important Notes
+
+- **Why 375x667:**
+  - iPhone SE size - one of the smallest common phones
+  - If it works here, it likely works on all mobile devices
+
+- **What counts as "works well":**
+  - All content visible without horizontal scrolling
+  - Text is readable (minimum ~14-16px font size)
+  - Buttons are tappable (minimum 44x44px)
+  - Layout stacks vertically for narrow screen
+
+- **What counts as "broken":**
+  - Horizontal scrolling required (desktop layout on mobile)
+  - Text too small to read
+  - Buttons too small to tap
+  - Content cut off or hidden
+
+- **Mobile is critical:**
+  - 50-70% of web traffic is mobile
+  - Site must work on mobile devices
+
+---
+
+## Time Estimate
+Expected completion: 20-30 seconds

@@ -1,0 +1,170 @@
+---
+title = "Desktop Viewport Testing"
+version = "1.0.0"
+description = "Test website at large desktop viewport (1920x1080) to verify layout works on wide screens"
+taskId = "test-desktop-viewport"
+severity = "LOW"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Desktop Viewport Testing
+
+**Task ID:** `test-desktop-viewport`
+**Severity:** LOW
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Verify the website works correctly on large desktop screens.
+
+---
+
+## What to Do
+
+1. **Set viewport to large desktop size:**
+   - Resize browser to 1920x1080 pixels (Full HD)
+   - This is a common large monitor size
+   - Refresh the page
+
+2. **Check layout:**
+   - Does content use the available width well?
+   - Is there a max-width (content centered) or full-width layout?
+   - Is content too stretched or too narrow?
+
+3. **Check for issues:**
+   - Any extremely long text lines (hard to read)?
+   - Any images stretched beyond their size?
+   - Any weird spacing or layout issues?
+
+---
+
+## Definition of Done
+
+You've verified:
+- ✅ Page loaded at desktop viewport (1920x1080)
+- ✅ Layout looks good on wide screen
+- ✅ Content is not overly stretched
+- ✅ Text lines aren't too long
+- ✅ No critical visual issues
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "viewportSize": "1920x1080",
+  "layoutUsesSpaceWell": true,
+  "textLinesReadable": true,
+  "imagesNotStretched": true,
+  "noLayoutIssues": true,
+  "issues": []
+}
+```
+
+**If issues found:**
+```json
+{
+  "success": false,
+  "viewportSize": "1920x1080",
+  "layoutUsesSpaceWell": false,
+  "textLinesReadable": false,
+  "imagesNotStretched": true,
+  "noLayoutIssues": true,
+  "issues": ["Text lines stretch full width - too long to read comfortably (>100 characters per line)"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if site works well on large desktop, `false` if critical issues
+- **viewportSize**: Confirm viewport size tested (should be "1920x1080")
+- **layoutUsesSpaceWell**: `true` if layout looks good (not too stretched or cramped)
+- **textLinesReadable**: `true` if text lines aren't too long (ideally 50-80 characters max)
+- **imagesNotStretched**: `true` if images scale properly (not pixelated/stretched)
+- **noLayoutIssues**: `true` if no weird spacing or positioning issues
+- **issues**: Array of specific problems found (empty if none)
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Desktop works perfectly
+```json
+{
+  "success": true,
+  "viewportSize": "1920x1080",
+  "layoutUsesSpaceWell": true,
+  "textLinesReadable": true,
+  "imagesNotStretched": true,
+  "noLayoutIssues": true,
+  "issues": []
+}
+```
+
+### Example 2: Text lines too long
+```json
+{
+  "success": false,
+  "viewportSize": "1920x1080",
+  "layoutUsesSpaceWell": false,
+  "textLinesReadable": false,
+  "imagesNotStretched": true,
+  "noLayoutIssues": true,
+  "issues": ["Text stretches full width of screen - lines are too long to read comfortably"]
+}
+```
+
+### Example 3: Images stretched
+```json
+{
+  "success": false,
+  "viewportSize": "1920x1080",
+  "layoutUsesSpaceWell": true,
+  "textLinesReadable": true,
+  "imagesNotStretched": false,
+  "noLayoutIssues": true,
+  "issues": ["Hero image is stretched and pixelated at full width"]
+}
+```
+
+---
+
+## Important Notes
+
+- **Why 1920x1080:**
+  - Full HD - very common large monitor size
+  - Tests how site handles wide screens
+
+- **What counts as "works well":**
+  - Content uses space appropriately (centered or full-width both OK)
+  - Text lines aren't too long (max ~80 characters per line)
+  - Images scale properly
+  - Layout looks intentional
+
+- **What counts as "broken":**
+  - Text lines extremely long (100+ characters) - hard to read
+  - Images stretched and pixelated
+  - Layout looks broken or accidental
+  - Huge amounts of wasted whitespace
+
+- **Common patterns:**
+  - **Centered max-width:** Content has max-width (e.g., 1200px) and is centered
+  - **Full-width:** Content stretches across entire screen
+  - **Multi-column:** Content in multiple columns to use width
+
+- **Desktop is lower priority:**
+  - Most sites are designed for desktop first
+  - Issues here are usually minor
+
+---
+
+## Time Estimate
+Expected completion: 15-20 seconds

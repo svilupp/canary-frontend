@@ -19,8 +19,9 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
   },
+  { rel: "icon", href: "/canary-favicon.png", type: "image/png" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -56,16 +57,41 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       error.status === 404
         ? "The requested page could not be found."
         : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
+
+    // Log route errors (404s, etc)
+    if (error.status === 404) {
+      console.warn(`[ErrorBoundary] 404 Not Found: ${error.data?.pathname || "unknown path"}`);
+    } else {
+      console.error(`[ErrorBoundary] Route error ${error.status}:`, {
+        status: error.status,
+        statusText: error.statusText,
+        data: error.data,
+      });
+    }
+  } else if (error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
+
+    // Log application errors
+    console.error("[ErrorBoundary] Application error:", {
+      message: error.message,
+      name: error.name,
+      stack: error.stack,
+      cause: error.cause,
+    });
+  } else {
+    // Log unknown errors
+    console.error("[ErrorBoundary] Unknown error:", {
+      error: String(error),
+      type: typeof error,
+    });
   }
 
   return (
     <main className="pt-16 p-4 container mx-auto">
       <h1>{message}</h1>
       <p>{details}</p>
-      {stack && (
+      {stack && import.meta.env.DEV && (
         <pre className="w-full p-4 overflow-x-auto">
           <code>{stack}</code>
         </pre>

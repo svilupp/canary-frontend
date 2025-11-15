@@ -1,0 +1,50 @@
+---
+title = "Visual Problem Detection"
+version = "1.0.0"
+description = "Detect critical visual/layout problems"
+taskId = "visual-problems"
+severity = "HIGH"
+terminatesOnFailure = false
+---
+# Micro-Task: Visual Problem Detection
+
+**Task ID:** `visual-problems`
+**Severity:** HIGH
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Detect critical visual/layout problems.
+
+---
+
+## What to Check
+- [ ] Broken images (missing image icons)
+- [ ] Text overlapping other text
+- [ ] Content cut off at screen edges
+- [ ] Severely broken layout
+- [ ] Text too small to read
+
+**DO NOT report minor cosmetic issues**
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON. DO NOT include any explanatory text before or after the JSON.**
+
+```json
+{
+  "success": true,
+  "problems": [],
+  "hasCriticalProblems": false,
+  "notes": "No visual problems detected",
+  "painPoint": "Optional: 1-sentence note if task was confusing"
+}
+```
+
+---
+
+## Time Estimate
+10 seconds

@@ -1,0 +1,172 @@
+---
+title = "Header Navigation Testing"
+version = "1.0.0"
+description = "Test that all header navigation links work correctly"
+taskId = "test-header-nav"
+severity = "HIGH"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Header Navigation Testing
+
+**Task ID:** `test-header-nav`
+**Severity:** HIGH
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Click each header navigation link and verify it navigates correctly without errors.
+
+---
+
+## What to Do
+
+1. **Start from home page:**
+   - Note the current URL
+
+2. **For EACH header navigation link:**
+   - Click the link
+   - Wait for page to load
+   - Check: Did URL change? (or did content change for SPAs?)
+   - Check: Is there an error (404, 500, blank page)?
+   - Check: Did new content load?
+   - Go back to home page
+
+3. **Record results:**
+   - Which links worked
+   - Which links failed
+   - What errors occurred
+
+---
+
+## Definition of Done
+
+You've tested:
+- ✅ Every header navigation link
+- ✅ Each link either works (loads content) or fails (shows error)
+- ✅ You returned to home page after each test
+- ✅ You recorded all failures clearly
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "totalLinksTested": 5,
+  "workingLinks": 5,
+  "failedLinks": 0,
+  "results": [
+    {
+      "linkText": "Home",
+      "worked": true,
+      "urlAfterClick": "https://example.com/",
+      "error": null
+    },
+    {
+      "linkText": "About",
+      "worked": true,
+      "urlAfterClick": "https://example.com/about",
+      "error": null
+    }
+  ],
+  "failures": []
+}
+```
+
+**If any links failed:**
+```json
+{
+  "success": false,
+  "totalLinksTested": 5,
+  "workingLinks": 4,
+  "failedLinks": 1,
+  "results": [
+    {
+      "linkText": "Home",
+      "worked": true,
+      "urlAfterClick": "https://example.com/",
+      "error": null
+    },
+    {
+      "linkText": "Broken Link",
+      "worked": false,
+      "urlAfterClick": "https://example.com/404",
+      "error": "404 Not Found"
+    }
+  ],
+  "failures": ["Broken Link: 404 Not Found"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if ALL links worked, `false` if ANY link failed
+- **totalLinksTested**: Count of header links tested
+- **workingLinks**: Count of links that worked
+- **failedLinks**: Count of links that failed
+- **results**: Array of test results for each link
+  - **linkText**: Text of the link clicked
+  - **worked**: `true` if link worked, `false` if failed
+  - **urlAfterClick**: URL after clicking (or "NO_CHANGE" for SPAs that don't change URL)
+  - **error**: Error message if failed, `null` if worked
+- **failures**: Array of failure descriptions (empty if all worked)
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: All links work
+```json
+{
+  "success": true,
+  "totalLinksTested": 4,
+  "workingLinks": 4,
+  "failedLinks": 0,
+  "results": [
+    {"linkText": "Home", "worked": true, "urlAfterClick": "https://example.com/", "error": null},
+    {"linkText": "About", "worked": true, "urlAfterClick": "https://example.com/about", "error": null},
+    {"linkText": "Services", "worked": true, "urlAfterClick": "https://example.com/services", "error": null},
+    {"linkText": "Contact", "worked": true, "urlAfterClick": "https://example.com/contact", "error": null}
+  ],
+  "failures": []
+}
+```
+
+### Example 2: One link broken
+```json
+{
+  "success": false,
+  "totalLinksTested": 3,
+  "workingLinks": 2,
+  "failedLinks": 1,
+  "results": [
+    {"linkText": "Home", "worked": true, "urlAfterClick": "https://example.com/", "error": null},
+    {"linkText": "Products", "worked": false, "urlAfterClick": "https://example.com/products", "error": "404 Not Found - Page does not exist"},
+    {"linkText": "About", "worked": true, "urlAfterClick": "https://example.com/about", "error": null}
+  ],
+  "failures": ["Products: 404 Not Found - Page does not exist"]
+}
+```
+
+---
+
+## Important Notes
+
+- **What counts as "worked":** Page loads with content, no error messages
+- **What counts as "failed":** 404, 500, blank page, network error, or no response
+- **For SPAs (Single Page Apps):** URL might not change, but content should change
+- **Return to home:** Always go back to home page between tests to ensure clean state
+- **Be thorough:** Test every header link, even if it seems redundant
+
+---
+
+## Time Estimate
+Expected completion: 30-60 seconds (depends on number of links)

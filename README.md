@@ -1,22 +1,12 @@
-# Welcome to React Router!
+# Canary Frontend
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Frontend application for Canary - a parallel browser automation testing platform.
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+> Deploy the flock, ship with confidence.
 
 ## Getting Started
 
-### Installation
-
-Install the dependencies:
+### Install
 
 ```bash
 npm install
@@ -24,56 +14,79 @@ npm install
 
 ### Development
 
-Start the development server with HMR:
+**⚠️ IMPORTANT: Always use `dev:logs` to enable development logging.**
+
+This command pipes all server-side output (stdout and stderr) to `public/_logs.txt`.
 
 ```bash
-npm run dev
+npm run dev:logs
 ```
 
 Your application will be available at `http://localhost:5173`.
 
-## Previewing the Production Build
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
-
-## Building for Production
-
-Create a production build:
+### Build
 
 ```bash
 npm run build
 ```
 
-## Deployment
+### Preview
 
-Deployment is done using the Wrangler CLI.
+```bash
+npm run preview
+```
 
-To build and deploy directly to production:
+### Deploy
 
-```sh
+```bash
 npm run deploy
 ```
 
-To deploy a preview URL:
+## Logging
 
-```sh
-npx wrangler versions upload
-```
+This project uses a dual-mode logging system that behaves differently for local development and production.
 
-You can then promote a version to production after verification or roll it out progressively.
+-   **Local Development**: Logs are written to a file in `public/_logs.txt`.
+-   **Production**: Client-side logs are sent to a Cloudflare KV store, and server-side logs are available via `wrangler tail`.
 
-```sh
-npx wrangler versions deploy
-```
+For complete implementation details, see [LOGGING_SKILL.md](./LOGGING_SKILL.md).
 
-## Styling
+### Viewing Logs
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+-   **Local (Option A: HTTP)**
+    ```bash
+    curl http://localhost:5173/_logs.txt
+    ```
+-   **Local (Option B: File tail)**
+    ```bash
+    tail -f public/_logs.txt
+    ```
+-   **Production (Client Logs)**
+    ```bash
+    # Replace with your production domain
+    curl https://your-app.workers.dev/_logs.txt
+    ```
+-   **Production (Server Logs)**
+    ```bash
+    npx wrangler tail
+    ```
+
+### Clearing Logs
+
+-   **Local**
+    ```bash
+    rm public/_logs.txt
+    ```
+-   **Production**
+    ```bash
+    # This wipes the client-side logs from the KV store
+    curl -X POST https://your-app.workers.dev/logs-clear
+    ```
+
+## Design System
+
+See `canary-design-system.md` for the complete design system specification.
 
 ---
 
-Built with ❤️ using React Router.
+Built with React Router 7 and deployed on Cloudflare Workers.

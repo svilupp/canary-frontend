@@ -1,0 +1,102 @@
+---
+title = "Page Title Extraction"
+version = "1.0.0"
+description = "Extract the page title from the browser tab and verify it's appropriate (not an error message)"
+taskId = "extract-title"
+severity = "INFO"
+terminatesOnFailure = false
+---
+# Micro-Task: Page Title Extraction
+
+**Task ID:** `extract-title`
+**Severity:** INFO
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Extract the page title from the browser tab and verify it's appropriate (not an error message).
+
+---
+
+## What to Do
+
+1. Look at the browser tab/title bar
+2. Read the exact text shown as the page title
+3. Check if the title makes sense for this application
+4. Verify it's not an error message like "Error" or "Page Not Found"
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON. DO NOT include any explanatory text before or after the JSON.**
+
+```json
+{
+  "success": true,
+  "pageTitle": "Exact title text from browser tab",
+  "isErrorTitle": false,
+  "notes": "Brief observation about the title",
+  "painPoint": "Optional: 1-sentence note if task was confusing"
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if title extracted successfully, `false` if couldn't find title
+- **pageTitle**: Exact text from the browser tab (string)
+- **isErrorTitle**: `true` if title indicates error (like "Error", "404"), `false` otherwise
+- **notes**: Your observation (e.g., "Title is descriptive and professional")
+
+---
+
+## Examples
+
+### Example 1: Good Title
+```json
+{
+  "success": true,
+  "pageTitle": "Buy Time - Longevity Tech",
+  "isErrorTitle": false,
+  "notes": "Title is clear and describes the application purpose"
+}
+```
+
+### Example 2: Error Title
+```json
+{
+  "success": true,
+  "pageTitle": "Error 404 - Page Not Found",
+  "isErrorTitle": true,
+  "notes": "Title indicates an error page",
+  "painPoint": "Unclear what counts as an error title besides 404"
+}
+```
+
+### Example 3: Generic Title
+```json
+{
+  "success": true,
+  "pageTitle": "Home",
+  "isErrorTitle": false,
+  "notes": "Title is very generic, could be more descriptive"
+}
+```
+
+---
+
+## Important Notes
+
+- This is an INFO check - failure won't stop subsequent tests
+- Be precise - copy the exact title text
+- Don't judge if the title is "good" or "bad", just report what it is
+- Add painPoint if instructions were confusing (optional, 1 sentence max)
+- **MUST RETURN ONLY JSON** - No explanatory text before or after
+
+---
+
+## Time Estimate
+Expected completion: 3-5 seconds

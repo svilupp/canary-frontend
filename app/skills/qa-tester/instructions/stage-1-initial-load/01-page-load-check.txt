@@ -1,0 +1,149 @@
+---
+title = "Page Load Verification"
+version = "2.0.0"
+description = "Verify that the web page loaded successfully without critical errors like 404, 500, or network failures"
+taskId = "page-load-check"
+severity = "CRITICAL"
+terminatesOnFailure = true
+---
+# Micro-Task: Page Load Verification
+
+**Task ID:** `page-load-check`
+**Severity:** CRITICAL
+**Terminates on Failure:** YES
+
+---
+
+## Objective
+Verify that the web page loaded successfully without critical errors like 404, 500, or network failures.
+
+---
+
+## What to Check
+
+Look at the current page and answer these questions:
+
+1. **Is there a visible error message?**
+   - Examples: "404 Not Found", "500 Internal Server Error", "This site can't be reached"
+   - Check both in the page content AND the browser title
+
+2. **Is the page completely blank?**
+   - No content visible at all
+   - Just white/empty screen
+
+3. **Did the page load actual content?**
+   - Can you see text, images, or UI elements?
+   - Does it look like a real web page?
+
+---
+
+## Critical Failure Indicators
+
+Any of these means CRITICAL failure:
+- ❌ Error message visible to user (404, 500, network error)
+- ❌ Page is completely blank (no content)
+- ❌ Browser shows connection error
+- ❌ Page title says "Error" or "Not Found"
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON. DO NOT include any explanatory text before or after the JSON.**
+
+**If page loaded successfully:**
+```json
+{
+  "success": true,
+  "loaded": true,
+  "hasContent": true,
+  "errorType": null,
+  "errorMessage": null,
+  "notes": "Page loaded successfully with visible content"
+}
+```
+
+**If page failed to load:**
+```json
+{
+  "success": false,
+  "loaded": false,
+  "hasContent": false,
+  "errorType": "404" | "500" | "NETWORK_ERROR" | "BLANK_PAGE",
+  "errorMessage": "Exact error text you see on the page",
+  "serverLogs": null,
+  "notes": "Detailed description of what you observe"
+}
+```
+
+**IMPORTANT - Server Log Retrieval:**
+- If page fails with 500 error or NETWORK_ERROR, attempt to retrieve server logs
+- Navigate to `{hostname}/_logs.txt` (e.g., `https://buy-time-978217061957.us-west1.run.app/_logs.txt`)
+- Extract the last 100 rows and include in `serverLogs` field
+- If logs not accessible, set `serverLogs: "NOT_ACCESSIBLE"`
+- This helps diagnose server-side failures
+
+---
+
+## Field Definitions
+
+- **success**: `true` if page loaded OK, `false` if critical error
+- **loaded**: `true` if HTTP request succeeded, `false` if network/server error
+- **hasContent**: `true` if page has visible content, `false` if blank
+- **errorType**: One of: `"404"`, `"500"`, `"NETWORK_ERROR"`, `"BLANK_PAGE"`, or `null`
+- **errorMessage**: Exact error text shown to user (or `null`)
+- **notes**: Your brief observation (1-2 sentences)
+
+---
+
+## Examples
+
+### Example 1: Success
+```json
+{
+  "success": true,
+  "loaded": true,
+  "hasContent": true,
+  "errorType": null,
+  "errorMessage": null,
+  "notes": "Page loaded with navigation, hero section, and footer visible"
+}
+```
+
+### Example 2: 404 Error
+```json
+{
+  "success": false,
+  "loaded": false,
+  "hasContent": false,
+  "errorType": "404",
+  "errorMessage": "404 - Page Not Found",
+  "notes": "Page shows 404 error, no content loaded"
+}
+```
+
+### Example 3: Blank Page
+```json
+{
+  "success": false,
+  "loaded": true,
+  "hasContent": false,
+  "errorType": "BLANK_PAGE",
+  "errorMessage": null,
+  "notes": "Page loaded but shows only white screen, no content visible",
+  "painPoint": "Unclear if should wait for page to finish loading"
+}
+```
+
+---
+
+## Important Notes
+
+- This is a CRITICAL check - if it fails, all subsequent tests will be skipped
+- Be accurate - don't report success if there's an error
+- Be specific in your notes about what you observe
+
+---
+
+## Time Estimate
+Expected completion: 5-10 seconds

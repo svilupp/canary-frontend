@@ -1,0 +1,131 @@
+---
+title = "Navigation Discovery"
+version = "1.0.0"
+description = "Find and catalog all navigation elements on the page"
+taskId = "discover-nav-elements"
+severity = "INFO"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Navigation Discovery
+
+**Task ID:** `discover-nav-elements`
+**Severity:** INFO
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Find all navigation elements on the page to understand the site structure.
+
+---
+
+## What to Do
+
+1. **Find header navigation:**
+   - Look for navigation menu in the header/top of page
+   - List all visible navigation links (e.g., "Home", "About", "Products", "Contact")
+   - Note if there's a logo in the header
+
+2. **Find footer navigation:**
+   - Scroll to the bottom of the page
+   - List all footer links (e.g., "Privacy", "Terms", "Social media links")
+
+3. **Find dropdown/submenu elements:**
+   - Check if any navigation items have dropdowns or submenus
+   - Note which items have nested menus
+
+4. **Note special elements:**
+   - Theme toggles (dark/light mode)
+   - Language selectors
+   - Mobile menu button (hamburger icon)
+
+---
+
+## Definition of Done
+
+You've successfully cataloged:
+- ✅ All header navigation links
+- ✅ Logo location
+- ✅ All footer links
+- ✅ Any dropdown/submenu items
+- ✅ Any special navigation elements
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "headerNav": ["Home", "About", "Products", "Contact"],
+  "hasLogo": true,
+  "logoLocation": "top-left",
+  "footerNav": ["Privacy Policy", "Terms of Service", "Twitter", "LinkedIn"],
+  "dropdowns": ["Products has 3 subitems", "About has 2 subitems"],
+  "specialElements": ["Dark mode toggle", "Hamburger menu"],
+  "totalNavElements": 12
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: Always `true` (this is just discovery, can't fail)
+- **headerNav**: Array of header navigation link texts
+- **hasLogo**: `true` if logo present, `false` if not
+- **logoLocation**: Where logo is positioned (e.g., "top-left", "center")
+- **footerNav**: Array of footer link texts
+- **dropdowns**: Array describing any dropdown menus (empty array if none)
+- **specialElements**: Array of special nav elements like toggles, language selectors (empty array if none)
+- **totalNavElements**: Count of all navigation links found
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Simple site
+```json
+{
+  "success": true,
+  "headerNav": ["Home", "About", "Contact"],
+  "hasLogo": true,
+  "logoLocation": "top-left",
+  "footerNav": ["Privacy", "Terms"],
+  "dropdowns": [],
+  "specialElements": [],
+  "totalNavElements": 5
+}
+```
+
+### Example 2: Complex site with dropdowns
+```json
+{
+  "success": true,
+  "headerNav": ["Home", "Products", "Solutions", "Resources", "Pricing", "Contact"],
+  "hasLogo": true,
+  "logoLocation": "top-left",
+  "footerNav": ["About Us", "Careers", "Privacy", "Terms", "Twitter", "LinkedIn", "GitHub"],
+  "dropdowns": ["Products has 5 subitems: Analytics, Dashboard, Reports, Integrations, API", "Resources has 3 subitems: Docs, Blog, Help"],
+  "specialElements": ["Dark mode toggle", "Language selector (EN/ES/FR)"],
+  "totalNavElements": 20
+}
+```
+
+---
+
+## Important Notes
+
+- This is discovery only - you're NOT clicking links yet
+- Just catalog what exists
+- Be thorough - check header, footer, and look for hidden menus
+- Use ariaTree to find navigation elements efficiently
+
+---
+
+## Time Estimate
+Expected completion: 10-20 seconds

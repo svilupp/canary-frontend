@@ -1,0 +1,56 @@
+{
+  "stageName": "Button & Interactive Elements Testing",
+  "stageNumber": 3,
+  "description": "Verify all buttons and interactive elements work correctly",
+  "targetUrl": "https://buy-time-978217061957.us-west1.run.app/",
+  "microTasks": [
+    {
+      "id": "discover-buttons",
+      "name": "Button Discovery",
+      "file": "01-discover-buttons.txt",
+      "severity": "INFO",
+      "terminateOnFailure": false,
+      "maxSteps": 5,
+      "description": "Find all buttons and interactive elements on the page"
+    },
+    {
+      "id": "test-primary-actions",
+      "name": "Primary Action Button Testing",
+      "file": "02-test-primary-actions.txt",
+      "severity": "CRITICAL",
+      "terminateOnFailure": false,
+      "maxSteps": 15,
+      "description": "Test main action buttons (submit, save, checkout, etc.)"
+    },
+    {
+      "id": "test-modal-triggers",
+      "name": "Modal/Dialog Trigger Testing",
+      "file": "03-test-modal-triggers.txt",
+      "severity": "MEDIUM",
+      "terminateOnFailure": false,
+      "maxSteps": 12,
+      "description": "Test buttons that open modals/dialogs"
+    },
+    {
+      "id": "test-toggle-buttons",
+      "name": "Toggle Button Testing",
+      "file": "04-test-toggle-buttons.txt",
+      "severity": "LOW",
+      "terminateOnFailure": false,
+      "maxSteps": 10,
+      "description": "Test toggle/expand/collapse buttons"
+    },
+    {
+      "id": "test-disabled-state",
+      "name": "Disabled Button State Testing",
+      "file": "05-test-disabled-state.txt",
+      "severity": "LOW",
+      "terminateOnFailure": false,
+      "maxSteps": 8,
+      "description": "Verify disabled buttons don't respond to clicks"
+    }
+  ],
+  "expectedDuration": "2-3 minutes",
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-15"
+}

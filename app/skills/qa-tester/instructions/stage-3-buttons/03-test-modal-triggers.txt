@@ -1,0 +1,212 @@
+---
+title = "Modal/Dialog Trigger Testing"
+version = "1.0.0"
+description = "Test buttons that open modals, popups, or dialogs"
+taskId = "test-modal-triggers"
+severity = "MEDIUM"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Modal/Dialog Trigger Testing
+
+**Task ID:** `test-modal-triggers`
+**Severity:** MEDIUM
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Test buttons that open modals/popups/dialogs to ensure they work correctly.
+
+---
+
+## What to Do
+
+1. **Identify modal trigger buttons:**
+   - Common examples: "Learn More", "View Details", "Watch Video", "See Pricing"
+   - Look for buttons that might open overlays/popups
+   - If no modal triggers exist, return success with `hasModalTriggers: false`
+
+2. **For EACH modal trigger button:**
+   - Click the button
+   - Check: Did a modal/dialog/popup appear?
+   - Check: Can you see the modal content?
+   - Check: Is there a close button (X) or way to dismiss?
+   - Close the modal
+   - Check: Did modal close successfully?
+   - Record the result
+
+3. **Test modal close mechanisms:**
+   - Click close button (X)
+   - Click outside modal (background)
+   - Press Escape key (if supported)
+   - At least one method should work
+
+---
+
+## Definition of Done
+
+You've tested:
+- ✅ Every modal trigger button found
+- ✅ Each modal opens when triggered
+- ✅ Each modal has a way to close
+- ✅ Modal closes successfully
+- ✅ Any failures documented
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "hasModalTriggers": true,
+  "totalTested": 2,
+  "workingModals": 2,
+  "brokenModals": 0,
+  "results": [
+    {
+      "buttonText": "Learn More",
+      "modalOpened": true,
+      "modalHasContent": true,
+      "canClose": true,
+      "closeMethod": "Close button (X)",
+      "error": null
+    },
+    {
+      "buttonText": "Watch Video",
+      "modalOpened": true,
+      "modalHasContent": true,
+      "canClose": true,
+      "closeMethod": "Click outside modal",
+      "error": null
+    }
+  ],
+  "failures": []
+}
+```
+
+**If modal is broken:**
+```json
+{
+  "success": false,
+  "hasModalTriggers": true,
+  "totalTested": 1,
+  "workingModals": 0,
+  "brokenModals": 1,
+  "results": [
+    {
+      "buttonText": "View Details",
+      "modalOpened": false,
+      "modalHasContent": false,
+      "canClose": false,
+      "closeMethod": null,
+      "error": "Button clicked but no modal appeared"
+    }
+  ],
+  "failures": ["View Details: Button clicked but no modal appeared"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if ALL modals work, `false` if ANY are broken
+- **hasModalTriggers**: `true` if page has modal trigger buttons
+- **totalTested**: Count of modal triggers tested
+- **workingModals**: Count of modals that work correctly
+- **brokenModals**: Count of broken modals
+- **results**: Array of test results for each modal trigger
+  - **buttonText**: Text of the trigger button
+  - **modalOpened**: `true` if modal appeared after click
+  - **modalHasContent**: `true` if modal shows content (not blank)
+  - **canClose**: `true` if modal can be closed
+  - **closeMethod**: How you closed it (e.g., "Close button", "Click outside", "Escape key")
+  - **error**: Error description if broken, `null` if worked
+- **failures**: Array of failure descriptions
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: All modals work
+```json
+{
+  "success": true,
+  "hasModalTriggers": true,
+  "totalTested": 2,
+  "workingModals": 2,
+  "brokenModals": 0,
+  "results": [
+    {"buttonText": "View Pricing", "modalOpened": true, "modalHasContent": true, "canClose": true, "closeMethod": "Close button (X)", "error": null},
+    {"buttonText": "Play Video", "modalOpened": true, "modalHasContent": true, "canClose": true, "closeMethod": "Escape key", "error": null}
+  ],
+  "failures": []
+}
+```
+
+### Example 2: No modal triggers on page
+```json
+{
+  "success": true,
+  "hasModalTriggers": false,
+  "totalTested": 0,
+  "workingModals": 0,
+  "brokenModals": 0,
+  "results": [],
+  "failures": []
+}
+```
+
+### Example 3: Modal can't be closed
+```json
+{
+  "success": false,
+  "hasModalTriggers": true,
+  "totalTested": 1,
+  "workingModals": 0,
+  "brokenModals": 1,
+  "results": [
+    {"buttonText": "See Details", "modalOpened": true, "modalHasContent": true, "canClose": false, "closeMethod": null, "error": "Modal opened but has no close button and doesn't close on Escape or click outside"}
+  ],
+  "failures": ["See Details: Modal opened but has no close button and doesn't close on Escape or click outside"]
+}
+```
+
+---
+
+## Important Notes
+
+- **What is a modal:**
+  - Overlay that appears on top of page content
+  - Usually darkens the background
+  - Requires user to close it before continuing
+
+- **What counts as "working":**
+  - Modal opens when button clicked
+  - Modal shows content (not blank)
+  - Modal can be closed by at least one method
+
+- **What counts as "broken":**
+  - Button click does nothing (no modal appears)
+  - Modal appears but is blank/empty
+  - Modal appears but cannot be closed (user is stuck)
+
+- **Common close methods:**
+  - Close button (X) in corner
+  - Click outside modal on darkened background
+  - Press Escape key
+  - "Cancel" or "Close" button inside modal
+
+- **Not every site has modals:**
+  - If no modal triggers found, that's fine
+  - Just report `hasModalTriggers: false`
+
+---
+
+## Time Estimate
+Expected completion: 30-50 seconds (if modals exist), 5-10 seconds (if none)

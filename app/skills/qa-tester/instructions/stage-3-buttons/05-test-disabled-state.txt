@@ -1,0 +1,201 @@
+---
+title = "Disabled Button State Testing"
+version = "1.0.0"
+description = "Verify that disabled buttons don't respond to clicks"
+taskId = "test-disabled-state"
+severity = "LOW"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Disabled Button State Testing
+
+**Task ID:** `test-disabled-state`
+**Severity:** LOW
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Verify that disabled buttons are properly disabled and don't respond to clicks.
+
+---
+
+## What to Do
+
+1. **Find disabled buttons:**
+   - Look for buttons with `disabled` attribute
+   - Look for buttons with disabled styling (grayed out, low opacity)
+   - Common examples: "Submit" before form is filled, "Subscribe" without email, etc.
+   - If no disabled buttons exist, return success with `hasDisabledButtons: false`
+
+2. **For EACH disabled button:**
+   - Note the button text
+   - Try to click it
+   - Observe what happens:
+     - **Correct behavior:** Nothing happens (button doesn't respond)
+     - **Bug:** Button responds/does something despite being disabled
+   - Record the result
+
+3. **Check visual state:**
+   - Is it visually obvious the button is disabled?
+   - Common indicators: gray color, low opacity, "not-allowed" cursor
+
+---
+
+## Definition of Done
+
+You've verified:
+- ✅ All disabled buttons found
+- ✅ Each disabled button does NOT respond to clicks
+- ✅ Disabled buttons have appropriate visual styling
+- ✅ Any bugs (disabled button that still works) documented
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "hasDisabledButtons": true,
+  "totalTested": 2,
+  "properlyDisabled": 2,
+  "incorrectlyDisabled": 0,
+  "results": [
+    {
+      "buttonText": "Submit",
+      "isVisuallyDisabled": true,
+      "respondsToClick": false,
+      "error": null
+    },
+    {
+      "buttonText": "Subscribe",
+      "isVisuallyDisabled": true,
+      "respondsToClick": false,
+      "error": null
+    }
+  ],
+  "failures": []
+}
+```
+
+**If disabled button responds (BUG):**
+```json
+{
+  "success": false,
+  "hasDisabledButtons": true,
+  "totalTested": 1,
+  "properlyDisabled": 0,
+  "incorrectlyDisabled": 1,
+  "results": [
+    {
+      "buttonText": "Delete",
+      "isVisuallyDisabled": true,
+      "respondsToClick": true,
+      "error": "Button is styled as disabled but still responds to clicks - should not be clickable"
+    }
+  ],
+  "failures": ["Delete: Button is styled as disabled but still responds to clicks"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if ALL disabled buttons are properly disabled, `false` if ANY respond to clicks
+- **hasDisabledButtons**: `true` if page has disabled buttons
+- **totalTested**: Count of disabled buttons tested
+- **properlyDisabled**: Count of buttons that are correctly disabled (don't respond)
+- **incorrectlyDisabled**: Count of buttons that respond despite being disabled (bug)
+- **results**: Array of test results for each disabled button
+  - **buttonText**: Text of the button
+  - **isVisuallyDisabled**: `true` if button looks disabled (gray, low opacity, etc.)
+  - **respondsToClick**: `true` if button does something when clicked (BUG), `false` if no response (correct)
+  - **error**: Error description if button responds, `null` if properly disabled
+- **failures**: Array of failure descriptions
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: All disabled buttons work correctly
+```json
+{
+  "success": true,
+  "hasDisabledButtons": true,
+  "totalTested": 2,
+  "properlyDisabled": 2,
+  "incorrectlyDisabled": 0,
+  "results": [
+    {"buttonText": "Submit Form", "isVisuallyDisabled": true, "respondsToClick": false, "error": null},
+    {"buttonText": "Checkout", "isVisuallyDisabled": true, "respondsToClick": false, "error": null}
+  ],
+  "failures": []
+}
+```
+
+### Example 2: No disabled buttons on page
+```json
+{
+  "success": true,
+  "hasDisabledButtons": false,
+  "totalTested": 0,
+  "properlyDisabled": 0,
+  "incorrectlyDisabled": 0,
+  "results": [],
+  "failures": []
+}
+```
+
+### Example 3: Disabled button still responds (BUG)
+```json
+{
+  "success": false,
+  "hasDisabledButtons": true,
+  "totalTested": 1,
+  "properlyDisabled": 0,
+  "incorrectlyDisabled": 1,
+  "results": [
+    {"buttonText": "Buy Now", "isVisuallyDisabled": true, "respondsToClick": true, "error": "Button appears disabled but submitted form when clicked"}
+  ],
+  "failures": ["Buy Now: Button appears disabled but submitted form when clicked"]
+}
+```
+
+---
+
+## Important Notes
+
+- **What is a disabled button:**
+  - Button with `disabled` attribute in HTML
+  - Button that looks disabled (grayed out)
+  - Usually indicates action can't be performed yet
+
+- **What counts as "properly disabled":**
+  - Button does NOT respond to clicks
+  - Nothing happens when you try to click it
+  - Cursor might show "not-allowed" icon
+
+- **What counts as a BUG:**
+  - Button looks disabled but still works when clicked
+  - This is a serious UX issue - confuses users
+
+- **Why disabled buttons exist:**
+  - Form not complete ("Submit" disabled until required fields filled)
+  - Action not available ("Checkout" disabled if cart empty)
+  - Prevent duplicate submissions
+
+- **Visual indicators:**
+  - Gray or muted color
+  - Lower opacity (often 50%)
+  - "not-allowed" cursor on hover
+  - Sometimes has tooltip explaining why disabled
+
+---
+
+## Time Estimate
+Expected completion: 15-30 seconds (if disabled buttons exist), 5-10 seconds (if none)

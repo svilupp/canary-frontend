@@ -7,6 +7,7 @@
 		"cf-typegen": "wrangler types",
 		"deploy": "npm run build && wrangler deploy",
 		"dev": "react-router dev",
+		"dev:logs": "react-router dev 2>&1 | tee public/_logs.txt",
 		"postinstall": "npm run cf-typegen",
 		"preview": "npm run build && vite preview",
 		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
@@ -15,7 +16,8 @@
 		"isbot": "^5.1.31",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
-		"react-router": "^7.9.2"
+		"react-router": "^7.9.2",
+		"textprompts": "^0.3.0"
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "^1.13.5",

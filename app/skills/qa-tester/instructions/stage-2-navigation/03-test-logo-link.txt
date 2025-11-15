@@ -1,0 +1,165 @@
+---
+title = "Logo Link Testing"
+version = "1.0.0"
+description = "Verify that clicking the logo returns to the home page"
+taskId = "test-logo-link"
+severity = "HIGH"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Logo Link Testing
+
+**Task ID:** `test-logo-link`
+**Severity:** HIGH
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Verify that clicking the site logo returns the user to the home page (standard website pattern).
+
+---
+
+## What to Do
+
+1. **Find the home page URL:**
+   - Note the URL when you first load the site
+   - This is your "home page URL"
+
+2. **Navigate away from home:**
+   - Click any header navigation link to go to a different page
+   - Verify you're now on a different page (URL changed or content changed)
+
+3. **Click the logo:**
+   - Find the logo (usually top-left corner)
+   - Click it
+   - Wait for navigation
+
+4. **Verify you're back home:**
+   - Check: Did URL return to home page URL?
+   - Check: Is the home page content visible?
+
+---
+
+## Definition of Done
+
+You've verified:
+- ✅ Logo is clickable
+- ✅ Clicking logo navigates somewhere
+- ✅ You end up on the home page
+- ✅ No errors occurred
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "logoFound": true,
+  "logoClickable": true,
+  "returnsToHome": true,
+  "homePageUrl": "https://example.com/",
+  "urlAfterLogoClick": "https://example.com/",
+  "error": null
+}
+```
+
+**If logo doesn't work:**
+```json
+{
+  "success": false,
+  "logoFound": true,
+  "logoClickable": true,
+  "returnsToHome": false,
+  "homePageUrl": "https://example.com/",
+  "urlAfterLogoClick": "https://example.com/about",
+  "error": "Logo click did not return to home page"
+}
+```
+
+**If logo not found:**
+```json
+{
+  "success": false,
+  "logoFound": false,
+  "logoClickable": false,
+  "returnsToHome": false,
+  "homePageUrl": "https://example.com/",
+  "urlAfterLogoClick": null,
+  "error": "No logo found on page"
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if logo click returns to home, `false` otherwise
+- **logoFound**: `true` if logo element exists on page
+- **logoClickable**: `true` if logo is a clickable link
+- **returnsToHome**: `true` if clicking logo returns to home page
+- **homePageUrl**: The original home page URL
+- **urlAfterLogoClick**: URL after clicking logo (or `null` if not clickable)
+- **error**: Error description if test failed, `null` if passed
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Logo works correctly
+```json
+{
+  "success": true,
+  "logoFound": true,
+  "logoClickable": true,
+  "returnsToHome": true,
+  "homePageUrl": "https://buy-time.example.com/",
+  "urlAfterLogoClick": "https://buy-time.example.com/",
+  "error": null
+}
+```
+
+### Example 2: Logo exists but isn't clickable
+```json
+{
+  "success": false,
+  "logoFound": true,
+  "logoClickable": false,
+  "returnsToHome": false,
+  "homePageUrl": "https://example.com/",
+  "urlAfterLogoClick": null,
+  "error": "Logo found but is not a clickable link"
+}
+```
+
+### Example 3: Logo goes to wrong page
+```json
+{
+  "success": false,
+  "logoFound": true,
+  "logoClickable": true,
+  "returnsToHome": false,
+  "homePageUrl": "https://example.com/",
+  "urlAfterLogoClick": "https://example.com/about",
+  "error": "Logo click navigated to /about instead of home page"
+}
+```
+
+---
+
+## Important Notes
+
+- **Standard pattern:** On 99% of websites, clicking the logo returns to home
+- **What is "home":** Usually the root URL (e.g., `https://example.com/`)
+- **For SPAs:** URL might be `/#/` or `/home` - check if it matches initial URL
+- **Logo location:** Usually top-left, but could be centered
+- **This is important:** Broken logo link is frustrating for users
+
+---
+
+## Time Estimate
+Expected completion: 10-15 seconds

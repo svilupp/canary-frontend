@@ -6,13 +6,26 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "canary-frontend",
 	"compatibility_date": "2025-04-04",
+	"compatibility_flags": ["nodejs_compat"],
 	"main": "./workers/app.ts",
 	"vars": {
 		"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	/**
+	 * KV Namespaces
+	 * Key-value storage for logs
+	 * https://developers.cloudflare.com/kv/
+	 */
+	"kv_namespaces": [
+		{
+			"binding": "LOGS",
+			"id": "e3e29b995baf47649e5e5aca5d5346e2",
+			"preview_id": "35f914fe00b5449cb97ce3f026fe4a64"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

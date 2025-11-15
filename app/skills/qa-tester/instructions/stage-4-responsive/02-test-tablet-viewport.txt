@@ -1,0 +1,165 @@
+---
+title = "Tablet Viewport Testing"
+version = "1.0.0"
+description = "Test website at tablet viewport (768x1024) to verify layout works correctly"
+taskId = "test-tablet-viewport"
+severity = "MEDIUM"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Tablet Viewport Testing
+
+**Task ID:** `test-tablet-viewport`
+**Severity:** MEDIUM
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Verify the website works correctly on tablet devices at medium screen sizes.
+
+---
+
+## What to Do
+
+1. **Set viewport to tablet size:**
+   - Resize browser to 768x1024 pixels (iPad size)
+   - This is a common tablet screen size
+   - Refresh the page
+
+2. **Check layout:**
+   - Does layout look appropriate for medium screen?
+   - Is content spaced well (not too cramped, not too sparse)?
+   - Are multi-column layouts working (if present)?
+
+3. **Check for issues:**
+   - Any weird spacing or overlapping content?
+   - Any elements cut off or hidden?
+   - Does it look like mobile layout or desktop layout?
+
+---
+
+## Definition of Done
+
+You've verified:
+- ✅ Page loaded at tablet viewport (768x1024)
+- ✅ Layout looks appropriate for medium screen
+- ✅ Content is well-spaced and readable
+- ✅ No overlapping or cut-off content
+- ✅ No critical visual issues
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "viewportSize": "768x1024",
+  "layoutAppropriate": true,
+  "contentWellSpaced": true,
+  "noOverlapping": true,
+  "allContentVisible": true,
+  "issues": []
+}
+```
+
+**If issues found:**
+```json
+{
+  "success": false,
+  "viewportSize": "768x1024",
+  "layoutAppropriate": false,
+  "contentWellSpaced": true,
+  "noOverlapping": false,
+  "allContentVisible": true,
+  "issues": ["Navigation menu overlapping main content", "Layout appears to be stuck in mobile view"]
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if site works well on tablet, `false` if critical issues
+- **viewportSize**: Confirm viewport size tested (should be "768x1024")
+- **layoutAppropriate**: `true` if layout looks good for medium screen
+- **contentWellSpaced**: `true` if spacing looks good (not cramped or too sparse)
+- **noOverlapping**: `true` if no elements overlap each other
+- **allContentVisible**: `true` if all content is visible (nothing cut off)
+- **issues**: Array of specific problems found (empty if none)
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Tablet works perfectly
+```json
+{
+  "success": true,
+  "viewportSize": "768x1024",
+  "layoutAppropriate": true,
+  "contentWellSpaced": true,
+  "noOverlapping": true,
+  "allContentVisible": true,
+  "issues": []
+}
+```
+
+### Example 2: Content overlapping
+```json
+{
+  "success": false,
+  "viewportSize": "768x1024",
+  "layoutAppropriate": false,
+  "contentWellSpaced": false,
+  "noOverlapping": false,
+  "allContentVisible": true,
+  "issues": ["Sidebar overlapping main content", "Two-column layout not working correctly"]
+}
+```
+
+### Example 3: Stuck in mobile layout
+```json
+{
+  "success": false,
+  "viewportSize": "768x1024",
+  "layoutAppropriate": false,
+  "contentWellSpaced": true,
+  "noOverlapping": true,
+  "allContentVisible": true,
+  "issues": ["Site showing mobile layout on tablet - too much wasted space"]
+}
+```
+
+---
+
+## Important Notes
+
+- **Why 768x1024:**
+  - Standard iPad size (portrait)
+  - Common tablet breakpoint in responsive design
+
+- **What counts as "works well":**
+  - Layout uses available space appropriately
+  - Could be mobile-like (stacked) or desktop-like (multi-column)
+  - No overlapping content
+  - No awkward spacing
+
+- **What counts as "broken":**
+  - Content overlapping
+  - Layout broken (elements in wrong positions)
+  - Stuck in mobile layout with huge white space
+  - Stuck in desktop layout with cramped content
+
+- **Tablet is medium priority:**
+  - Less critical than mobile or desktop
+  - But still 10-20% of traffic on some sites
+
+---
+
+## Time Estimate
+Expected completion: 15-25 seconds

@@ -1,0 +1,163 @@
+---
+title = "Footer Navigation Testing"
+version = "1.0.0"
+description = "Test that all footer navigation links work correctly"
+taskId = "test-footer-nav"
+severity = "MEDIUM"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Footer Navigation Testing
+
+**Task ID:** `test-footer-nav`
+**Severity:** MEDIUM
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Click each footer navigation link and verify it works correctly (internal links, external links, social media).
+
+---
+
+## What to Do
+
+1. **Scroll to footer:**
+   - Scroll to the bottom of the page
+   - Find all footer links
+
+2. **For EACH footer link:**
+   - Click the link
+   - Check what happens:
+     - **Internal page:** Does it load correctly?
+     - **External link:** Does it open (new tab or same tab)?
+     - **Social media:** Does it go to the social profile?
+   - Note: Don't verify the destination is "correct", just that it goes somewhere without error
+   - Return to home page before testing next link
+
+3. **Record results:**
+   - Which links worked
+   - Which links failed
+   - Type of link (internal, external, social)
+
+---
+
+## Definition of Done
+
+You've tested:
+- ✅ Every footer link
+- ✅ Each link either works (goes somewhere) or fails (404/error)
+- ✅ You noted the type of each link
+- ✅ You recorded all failures
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "totalLinksTested": 6,
+  "workingLinks": 6,
+  "failedLinks": 0,
+  "results": [
+    {
+      "linkText": "Privacy Policy",
+      "worked": true,
+      "linkType": "internal",
+      "destination": "https://example.com/privacy",
+      "error": null
+    },
+    {
+      "linkText": "Twitter",
+      "worked": true,
+      "linkType": "external-social",
+      "destination": "https://twitter.com/example",
+      "error": null
+    }
+  ],
+  "failures": []
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if ALL links worked, `false` if ANY link failed
+- **totalLinksTested**: Count of footer links tested
+- **workingLinks**: Count of links that worked
+- **failedLinks**: Count of links that failed
+- **results**: Array of test results for each link
+  - **linkText**: Text or aria-label of the link
+  - **worked**: `true` if link worked, `false` if failed
+  - **linkType**: One of: "internal", "external", "external-social"
+  - **destination**: URL the link goes to
+  - **error**: Error message if failed, `null` if worked
+- **failures**: Array of failure descriptions
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: All footer links work
+```json
+{
+  "success": true,
+  "totalLinksTested": 5,
+  "workingLinks": 5,
+  "failedLinks": 0,
+  "results": [
+    {"linkText": "About Us", "worked": true, "linkType": "internal", "destination": "https://example.com/about", "error": null},
+    {"linkText": "Privacy Policy", "worked": true, "linkType": "internal", "destination": "https://example.com/privacy", "error": null},
+    {"linkText": "Terms of Service", "worked": true, "linkType": "internal", "destination": "https://example.com/terms", "error": null},
+    {"linkText": "Twitter", "worked": true, "linkType": "external-social", "destination": "https://twitter.com/example", "error": null},
+    {"linkText": "LinkedIn", "worked": true, "linkType": "external-social", "destination": "https://linkedin.com/company/example", "error": null}
+  ],
+  "failures": []
+}
+```
+
+### Example 2: One broken link
+```json
+{
+  "success": false,
+  "totalLinksTested": 3,
+  "workingLinks": 2,
+  "failedLinks": 1,
+  "results": [
+    {"linkText": "Privacy", "worked": true, "linkType": "internal", "destination": "https://example.com/privacy", "error": null},
+    {"linkText": "Careers", "worked": false, "linkType": "internal", "destination": "https://example.com/careers", "error": "404 Not Found"},
+    {"linkText": "GitHub", "worked": true, "linkType": "external-social", "destination": "https://github.com/example", "error": null}
+  ],
+  "failures": ["Careers: 404 Not Found"]
+}
+```
+
+---
+
+## Important Notes
+
+- **Link types:**
+  - `internal`: Links to pages on the same domain
+  - `external`: Links to other websites (not social media)
+  - `external-social`: Links to social media profiles (Twitter, LinkedIn, GitHub, etc.)
+
+- **What counts as "worked":**
+  - Internal: Page loads without 404/500 error
+  - External/Social: Link opens without error (don't verify it's the "right" destination)
+
+- **What counts as "failed":**
+  - 404, 500 errors
+  - Blank page
+  - Link doesn't work at all
+
+- **Don't verify correctness:** Just verify links go somewhere. We're not checking if the Twitter link goes to the RIGHT Twitter account, just that it goes to Twitter.
+
+---
+
+## Time Estimate
+Expected completion: 20-40 seconds (depends on number of links)

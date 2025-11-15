@@ -1,0 +1,144 @@
+---
+title = "Heading Structure Analysis"
+version = "1.0.0"
+description = "Find all visible headings (h1, h2, h3, etc.) on the page and analyze the heading structure"
+taskId = "find-headings"
+severity = "INFO"
+terminatesOnFailure = false
+---
+# Micro-Task: Heading Structure Analysis
+
+**Task ID:** `find-headings`
+**Severity:** INFO
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Find all visible headings (h1, h2, h3, etc.) on the page and analyze the heading structure.
+
+---
+
+## What to Do
+
+1. Use `ariaTree` to find all elements with role="heading"
+2. Extract the text content of each heading
+3. **Note**: `ariaTree` typically provides accessibility heading levels through aria-level attributes (numeric values like "1", "2", "3"). If explicit heading level information is available in aria attributes, use those values to construct heading levels (e.g., aria-level="1" becomes "h1", aria-level="2" becomes "h2"). If heading levels are not specified, indicate "unknown" as the level.
+4. Check if there's at least one h1 (accessibility requirement)
+5. Note if heading hierarchy makes sense (e.g., h1 → h2 → h3, not h1 → h4)
+
+**Important**: If you cannot determine specific heading levels from ariaTree, note this in `painPoint` and provide what information is available.
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON. DO NOT include any explanatory text before or after the JSON.**
+
+```json
+{
+  "success": true,
+  "headings": [
+    {"level": "h1", "text": "Main Heading Text"},
+    {"level": "h2", "text": "Subheading Text"},
+    {"level": "unknown", "text": "Another Heading"}
+  ],
+  "totalCount": 3,
+  "hasH1": true,
+  "hierarchyIssues": [],
+  "notes": "Brief summary of heading structure",
+  "painPoint": "Optional: 1-sentence note if task was confusing"
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: `true` if headings were found and analyzed
+- **headings**: Array of heading objects with `level` and `text`
+- **totalCount**: Total number of headings found
+- **hasH1**: `true` if at least one h1 exists (important for accessibility)
+- **hierarchyIssues**: Array of problems (e.g., `["h1 followed by h4 (skipped h2/h3)"]`)
+- **notes**: Your observation about the heading structure
+
+---
+
+## Hierarchy Rules
+
+Good hierarchy:
+- ✅ h1 → h2 → h3 → h4 (sequential levels)
+- ✅ h1 → h2 → h2 (same level siblings OK)
+- ✅ h1 → h2 → h3 → h2 (going back up OK)
+
+Bad hierarchy:
+- ❌ h1 → h4 (skipped h2 and h3)
+- ❌ h3 → h1 (smaller heading before larger)
+- ❌ No h1 at all (accessibility issue)
+
+---
+
+## Examples
+
+### Example 1: Good Structure
+```json
+{
+  "success": true,
+  "headings": [
+    {"level": "h1", "text": "Buy Time. Live Longer."},
+    {"level": "h2", "text": "Our Services"},
+    {"level": "h3", "text": "Time Automation"},
+    {"level": "h3", "text": "Longevity Tech"}
+  ],
+  "totalCount": 4,
+  "hasH1": true,
+  "hierarchyIssues": [],
+  "notes": "Well-structured heading hierarchy with proper levels"
+}
+```
+
+### Example 2: Missing H1
+```json
+{
+  "success": true,
+  "headings": [
+    {"level": "h2", "text": "Welcome"},
+    {"level": "h3", "text": "About Us"}
+  ],
+  "totalCount": 2,
+  "hasH1": false,
+  "hierarchyIssues": ["Page missing h1 (HIGH severity accessibility issue)"],
+  "notes": "No h1 found - this is a HIGH severity accessibility violation"
+}
+```
+
+### Example 3: Unknown Levels
+```json
+{
+  "success": true,
+  "headings": [
+    {"level": "unknown", "text": "Buy Time. Live Longer."},
+    {"level": "unknown", "text": "Buy Time"}
+  ],
+  "totalCount": 2,
+  "hasH1": false,
+  "hierarchyIssues": ["Cannot determine heading levels from ariaTree"],
+  "notes": "Found headings but specific HTML levels (h1-h6) not available from ariaTree",
+  "painPoint": "ariaTree does not provide specific HTML heading levels (h1-h6)"
+}
+```
+
+---
+
+## Important Notes
+
+- Look for **visible** headings only (not hidden in code)
+- Get the EXACT text content
+- **Missing h1 is a HIGH severity accessibility issue** but not a critical failure that terminates testing
+- Hierarchy problems are INFO level (note them but don't fail)
+- If ariaTree doesn't provide specific heading levels, report what's available and note limitation in `painPoint`
+
+---
+
+## Time Estimate
+Expected completion: 10-15 seconds

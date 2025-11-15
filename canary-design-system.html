@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canary Design System</title>
+    
+    <!-- Distinctive Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           CANARY DESIGN SYSTEM
+           Industrial meets friendly. Bold. Distinctive.
+           ============================================ */
+        
+        :root {
+            /* Color System */
+            --canary-yellow: #FFD60A;
+            --canary-gold: #FFC300;
+            --canary-dark: #E6B800;
+            --steel-dark: #415A77;
+            --steel-base: #526980;
+            --steel-light: #778DA9;
+            --steel-pale: #9BABC2;
+            --sky-pale: #E0E1DD;
+            --sky-light: #F5F5F3;
+            --coal-black: #1B1B1E;
+            --coal-darker: #0D0D0F;
+            --alert-red: #E63946;
+            --alert-red-dark: #C41E3A;
+            --success-green: #06A77D;
+            --success-green-dark: #058B6A;
+            --warning-orange: #FF9F1C;
+            
+            /* Typography */
+            --font-display: 'IBM Plex Sans Condensed', sans-serif;
+            --font-body: 'Sora', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing Scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+            --shadow-yellow: 0 4px 16px rgba(255, 214, 10, 0.3);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Light Mode (Default) */
+            --bg-primary: var(--sky-light);
+            --bg-secondary: white;
+            --bg-tertiary: var(--sky-pale);
+            --text-primary: var(--coal-black);
+            --text-secondary: var(--steel-dark);
+            --text-tertiary: var(--steel-light);
+            --border-color: #D1D1C7;
+            --overlay-bg: rgba(255, 255, 255, 0.95);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: var(--coal-darker);
+            --bg-secondary: var(--coal-black);
+            --bg-tertiary: var(--steel-dark);
+            --text-primary: var(--sky-light);
+            --text-secondary: var(--sky-pale);
+            --text-tertiary: var(--steel-pale);
+            --border-color: #3A3A3F;
+            --overlay-bg: rgba(27, 27, 30, 0.95);
+        }
+        
+        /* ============================================
+           BASE STYLES
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background var(--transition-base), color var(--transition-base);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Atmospheric Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, transparent 0%, rgba(255, 214, 10, 0.03) 100%),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(65, 90, 119, 0.02) 40px,
+                    rgba(65, 90, 119, 0.02) 80px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        [data-theme="dark"] body::before {
+            background: 
+                linear-gradient(135deg, rgba(255, 214, 10, 0.05) 0%, transparent 100%),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(255, 214, 10, 0.02) 60px,
+                    rgba(255, 214, 10, 0.02) 120px
+                );
+        }
+        
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--space-lg);
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: var(--space-md);
+        }
+        
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: var(--space-md);
+        }
+        
+        h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        p {
+            margin-bottom: var(--space-md);
+            font-weight: 400;
+        }
+        
+        .text-large {
+            font-size: 1.125rem;
+        }
+        
+        .text-small {
+            font-size: 0.875rem;
+        }
+        
+        .text-mono {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+        
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section {
+            margin-bottom: var(--space-3xl);
+            opacity: 0;
+            animation: fadeInUp var(--transition-slow) forwards;
+        }
+        
+        .section:nth-child(1) { animation-delay: 0ms; }
+        .section:nth-child(2) { animation-delay: 100ms; }
+        .section:nth-child(3) { animation-delay: 200ms; }
+        .section:nth-child(4) { animation-delay: 300ms; }
+        .section:nth-child(5) { animation-delay: 400ms; }
+        .section:nth-child(6) { animation-delay: 500ms; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .grid {
+            display: grid;
+            gap: var(--space-lg);
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        /* ============================================
+           HEADER
+           ============================================ */
+        
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 3px solid var(--canary-yellow);
+            padding: var(--space-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--canary-yellow);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-icon::before {
+            content: '🐤';
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            transition: all var(--transition-base);
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--canary-yellow);
+            background: var(--canary-yellow);
+            color: var(--coal-black);
+            transform: translateY(-2px);
+        }
+        
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        
+        .btn {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left var(--transition-slow);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--canary-yellow);
+            color: var(--coal-black);
+            box-shadow: var(--shadow-yellow);
+        }
+        
+        .btn-primary:hover {
+            background: var(--canary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 214, 10, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: var(--steel-dark);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--steel-base);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--canary-yellow);
+            color: var(--text-primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--canary-yellow);
+            color: var(--coal-black);
+            transform: translateY(-2px);
+        }
+        
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-ghost:hover {
+            border-color: var(--steel-dark);
+            color: var(--text-primary);
+        }
+        
+        .btn-danger {
+            background: var(--alert-red);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: var(--alert-red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success-green);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: var(--success-green-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-small {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 0.85rem;
+        }
+        
+        .btn-large {
+            padding: var(--space-lg) var(--space-2xl);
+            font-size: 1.1rem;
+        }
+        
+        /* ============================================
+           CARDS
+           ============================================ */
+        
+        .card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--canary-yellow);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-base);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-header {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .card-subtitle {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+        
+        .card-highlighted {
+            border: 2px solid var(--canary-yellow);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255, 214, 10, 0.05) 100%);
+        }
+        
+        /* ============================================
+           INPUTS & FORMS
+           ============================================ */
+        
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .form-label {
+            display: block;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all var(--transition-base);
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--canary-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.2);
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-tertiary);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            cursor: pointer;
+        }
+        
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--canary-yellow);
+        }
+        
+        /* ============================================
+           BADGES & TAGS
+           ============================================ */
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .badge-yellow {
+            background: var(--canary-yellow);
+            color: var(--coal-black);
+        }
+        
+        .badge-success {
+            background: var(--success-green);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--alert-red);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning-orange);
+            color: var(--coal-black);
+        }
+        
+        .badge-neutral {
+            background: var(--steel-light);
+            color: white;
+        }
+        
+        .badge-outline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        /* ============================================
+           ALERTS & NOTIFICATIONS
+           ============================================ */
+        
+        .alert {
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            border-left: 4px solid;
+            display: flex;
+            gap: var(--space-md);
+            align-items: flex-start;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .alert-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .alert-success {
+            background: rgba(6, 167, 125, 0.1);
+            border-color: var(--success-green);
+        }
+        
+        .alert-danger {
+            background: rgba(230, 57, 70, 0.1);
+            border-color: var(--alert-red);
+        }
+        
+        .alert-warning {
+            background: rgba(255, 159, 28, 0.1);
+            border-color: var(--warning-orange);
+        }
+        
+        .alert-info {
+            background: rgba(255, 214, 10, 0.1);
+            border-color: var(--canary-yellow);
+        }
+        
+        /* ============================================
+           STATUS INDICATORS
+           ============================================ */
+        
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+        
+        .status-active .status-dot {
+            background: var(--canary-yellow);
+            box-shadow: 0 0 8px var(--canary-yellow);
+        }
+        
+        .status-success .status-dot {
+            background: var(--success-green);
+            animation: none;
+        }
+        
+        .status-error .status-dot {
+            background: var(--alert-red);
+            box-shadow: 0 0 8px var(--alert-red);
+        }
+        
+        .status-idle .status-dot {
+            background: var(--steel-light);
+            animation: none;
+        }
+        
+        /* ============================================
+           PROGRESS INDICATORS
+           ============================================ */
+        
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--canary-yellow);
+            border-radius: var(--radius-lg);
+            transition: width var(--transition-slow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* ============================================
+           CODE BLOCKS
+           ============================================ */
+        
+        .code-block {
+            background: var(--coal-black);
+            color: var(--sky-light);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            border: 2px solid var(--steel-dark);
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: '// Canary Test Suite';
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-md);
+            font-size: 0.75rem;
+            color: var(--steel-light);
+            font-family: var(--font-mono);
+        }
+        
+        .code-block code {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .code-inline {
+            font-family: var(--font-mono);
+            background: rgba(65, 90, 119, 0.1);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+            color: var(--canary-dark);
+        }
+        
+        [data-theme="dark"] .code-inline {
+            background: rgba(255, 214, 10, 0.15);
+            color: var(--canary-yellow);
+        }
+        
+        /* ============================================
+           TABLES
+           ============================================ */
+        
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+        }
+        
+        thead {
+            background: var(--steel-dark);
+            color: white;
+        }
+        
+        th {
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            padding: var(--space-md);
+            text-align: left;
+        }
+        
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tbody tr {
+            transition: background var(--transition-fast);
+        }
+        
+        tbody tr:hover {
+            background: rgba(255, 214, 10, 0.05);
+        }
+        
+        /* ============================================
+           LOADING STATES
+           ============================================ */
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--canary-yellow);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-dots {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .loading-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--canary-yellow);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+        
+        /* ============================================
+           CANARY SPECIFIC ELEMENTS
+           ============================================ */
+        
+        .flight-path {
+            position: relative;
+            height: 60px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .flight-path::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--canary-yellow) 0px,
+                var(--canary-yellow) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: translateY(-50%);
+        }
+        
+        .canary-icon {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 24px;
+            animation: fly 4s linear infinite;
+        }
+        
+        @keyframes fly {
+            0% {
+                left: -30px;
+            }
+            100% {
+                left: calc(100% + 30px);
+            }
+        }
+        
+        .squadron-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-sm);
+        }
+        
+        .canary-unit {
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .canary-unit.active {
+            border-color: var(--canary-yellow);
+            background: rgba(255, 214, 10, 0.1);
+            animation: ping 2s ease-in-out infinite;
+        }
+        
+        .canary-unit.success {
+            border-color: var(--success-green);
+            background: rgba(6, 167, 125, 0.1);
+        }
+        
+        .canary-unit.error {
+            border-color: var(--alert-red);
+            background: rgba(230, 57, 70, 0.1);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes ping {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-lg) var(--space-md);
+            }
+            
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+            
+            .squadron-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        
+        .mt-sm { margin-top: var(--space-sm); }
+        .mt-md { margin-top: var(--space-md); }
+        .mt-lg { margin-top: var(--space-lg); }
+        .mt-xl { margin-top: var(--space-xl); }
+        
+        .mb-sm { margin-bottom: var(--space-sm); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+        .mb-xl { margin-bottom: var(--space-xl); }
+        
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        
+        .flex { display: flex; }
+        .flex-center { display: flex; justify-content: center; align-items: center; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-sm { gap: var(--space-sm); }
+        .gap-md { gap: var(--space-md); }
+        .gap-lg { gap: var(--space-lg); }
+    </style>
+</head>
+<body data-theme="light">
+    
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                <span>Canary</span>
+            </a>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-text">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+    
+    <div class="container">
+        
+        <!-- INTRODUCTION -->
+        <section class="section">
+            <h1>Canary Design System</h1>
+            <p class="text-large" style="max-width: 800px;">
+                Industrial meets friendly. A comprehensive design system for parallel browser automation testing. 
+                Bold colors, distinctive typography, and components built for speed and reliability.
+            </p>
+            <div class="flex gap-md flex-wrap mt-lg">
+                <span class="badge badge-yellow">Version 1.0</span>
+                <span class="badge badge-outline">Browser Automation</span>
+                <span class="badge badge-outline">QA Testing</span>
+            </div>
+        </section>
+        
+        <!-- COLOR PALETTE -->
+        <section class="section">
+            <h2>Color Palette</h2>
+            <p class="mb-lg">Dominant yellow with industrial steel grounding. High contrast for visibility and alertness.</p>
+            
+            <div class="grid grid-3">
+                <div class="card">
+                    <div style="width: 100%; height: 80px; background: var(--canary-yellow); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+                    <h4>Canary Yellow</h4>
+                    <code class="code-inline">#FFD60A</code>
+                    <p class="text-small mt-sm">Primary brand color. Active states, CTAs, alerts.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 100%; height: 80px; background: var(--steel-dark); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+                    <h4>Steel Dark</h4>
+                    <code class="code-inline">#415A77</code>
+                    <p class="text-small mt-sm">Base structure. Text, headers, grounding element.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 100%; height: 80px; background: var(--alert-red); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+                    <h4>Alert Red</h4>
+                    <code class="code-inline">#E63946</code>
+                    <p class="text-small mt-sm">Error states and critical alerts only.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 100%; height: 80px; background: var(--success-green); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+                    <h4>Success Green</h4>
+                    <code class="code-inline">#06A77D</code>
+                    <p class="text-small mt-sm">Pass states and successful completions.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 100%; height: 80px; background: var(--sky-pale); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+                    <h4>Sky Pale</h4>
+                    <code class="code-inline">#E0E1DD</code>
+                    <p class="text-small mt-sm">Light backgrounds and subtle elements.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 100%; height: 80px; background: var(--coal-black); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+                    <h4>Coal Black</h4>
+                    <code class="code-inline">#1B1B1E</code>
+                    <p class="text-small mt-sm">Dark mode backgrounds and strong text.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- TYPOGRAPHY -->
+        <section class="section">
+            <h2>Typography</h2>
+            <p class="mb-lg">Industrial condensed display paired with clean geometric body text.</p>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <div style="font-family: var(--font-display); font-size: 3rem; font-weight: 700; text-transform: uppercase; line-height: 1.1; margin-bottom: var(--space-md);">
+                        Squadron Deploy
+                    </div>
+                    <h4>IBM Plex Sans Condensed</h4>
+                    <p class="text-small">Display font for headings, labels, and UI elements. Geometric, industrial, distinctive. Always uppercase for maximum impact.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="font-family: var(--font-body); font-size: 1.25rem; line-height: 1.6; margin-bottom: var(--space-md);">
+                        The quick brown canary flies over the lazy debug session. Clean, readable, modern without being generic. Perfect for body text and longer content.
+                    </div>
+                    <h4>Sora</h4>
+                    <p class="text-small">Body font for paragraphs and content. Slightly geometric to complement the display font while maintaining excellent readability.</p>
+                </div>
+            </div>
+            
+            <div class="card mt-lg">
+                <div style="font-family: var(--font-mono); font-size: 1rem; line-height: 1.6; background: var(--coal-black); color: var(--canary-yellow); padding: var(--space-lg); border-radius: var(--radius-md);">
+                    const deployCanary = async () => {<br>
+                    &nbsp;&nbsp;await squadron.launch();<br>
+                    &nbsp;&nbsp;return 'All clear!';<br>
+                    };
+                </div>
+                <h4 class="mt-md">JetBrains Mono</h4>
+                <p class="text-small">Monospace font for code blocks and technical content. Excellent ligatures and code readability.</p>
+            </div>
+        </section>
+        
+        <!-- BUTTONS -->
+        <section class="section">
+            <h2>Buttons</h2>
+            <p class="mb-lg">Bold, tactile, and distinctive. Uppercase labels with smooth interactions.</p>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Primary Actions</h3>
+                    <div class="flex gap-md flex-wrap mt-md">
+                        <button class="btn btn-primary">Deploy Squadron</button>
+                        <button class="btn btn-primary btn-small">Launch</button>
+                        <button class="btn btn-primary btn-large">Start Testing</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Secondary Actions</h3>
+                    <div class="flex gap-md flex-wrap mt-md">
+                        <button class="btn btn-secondary">View Results</button>
+                        <button class="btn btn-outline">Configure</button>
+                        <button class="btn btn-ghost">Cancel</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Status Actions</h3>
+                    <div class="flex gap-md flex-wrap mt-md">
+                        <button class="btn btn-success">All Tests Passed</button>
+                        <button class="btn btn-danger">Stop Tests</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Disabled State</h3>
+                    <div class="flex gap-md flex-wrap mt-md">
+                        <button class="btn btn-primary" disabled style="opacity: 0.5; cursor: not-allowed;">Deploying...</button>
+                        <button class="btn btn-outline" disabled style="opacity: 0.5; cursor: not-allowed;">Unavailable</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FORMS -->
+        <section class="section">
+            <h2>Forms & Inputs</h2>
+            <p class="mb-lg">Clean, focused inputs with strong visual feedback.</p>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="form-group">
+                        <label class="form-label">Test Suite Name</label>
+                        <input type="text" class="form-input" placeholder="e.g., Checkout Flow Tests">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Target URL</label>
+                        <input type="url" class="form-input" placeholder="https://example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Browser Selection</label>
+                        <select class="form-select">
+                            <option>Chrome</option>
+                            <option>Firefox</option>
+                            <option>Safari</option>
+                            <option>Edge</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="form-group">
+                        <label class="form-label">Test Description</label>
+                        <textarea class="form-textarea" placeholder="Describe what this test suite validates..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox">
+                            <span>Run tests in parallel</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" checked>
+                            <span>Take screenshots on failure</span>
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary">Save Configuration</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CARDS -->
+        <section class="section">
+            <h2>Cards</h2>
+            <p class="mb-lg">Content containers with hover effects and accent strips.</p>
+            
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Standard Card</h4>
+                        <p class="card-subtitle">Basic container with hover effect</p>
+                    </div>
+                    <p>Clean borders, subtle shadows, and a yellow accent strip on hover. Perfect for content grouping.</p>
+                </div>
+                
+                <div class="card card-highlighted">
+                    <div class="card-header">
+                        <h4 class="card-title">Highlighted Card</h4>
+                        <p class="card-subtitle">Featured content</p>
+                    </div>
+                    <p>Yellow border with gradient background. Use for active or important items.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Test Suite</h4>
+                        <div class="flex gap-sm mt-sm">
+                            <span class="badge badge-success">12 Passed</span>
+                            <span class="badge badge-danger">2 Failed</span>
+                        </div>
+                    </div>
+                    <p class="text-small">Cards can contain badges, status indicators, and mixed content types.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ALERTS -->
+        <section class="section">
+            <h2>Alerts & Notifications</h2>
+            <p class="mb-lg">Clear feedback for different states and actions.</p>
+            
+            <div class="alert alert-success">
+                <div class="alert-icon">✓</div>
+                <div class="alert-content">
+                    <div class="alert-title">All Tests Passed</div>
+                    <p>Squadron completed 24 tests across 5 canaries. No issues detected.</p>
+                </div>
+            </div>
+            
+            <div class="alert alert-danger">
+                <div class="alert-icon">✕</div>
+                <div class="alert-content">
+                    <div class="alert-title">Test Failure Detected</div>
+                    <p>Canary #3 found an issue in the checkout flow. Element not found: #submit-button</p>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning">
+                <div class="alert-icon">⚠</div>
+                <div class="alert-content">
+                    <div class="alert-title">Performance Warning</div>
+                    <p>Page load time exceeded 3 seconds. Consider optimizing assets.</p>
+                </div>
+            </div>
+            
+            <div class="alert alert-info">
+                <div class="alert-icon">ℹ</div>
+                <div class="alert-content">
+                    <div class="alert-title">Squadron Deployed</div>
+                    <p>5 canaries are now patrolling your application. Results will appear in real-time.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- STATUS INDICATORS -->
+        <section class="section">
+            <h2>Status Indicators</h2>
+            <p class="mb-lg">Live status with animated dots for active states.</p>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="status status-active mb-md">
+                        <span class="status-dot"></span>
+                        <span>Tests Running</span>
+                    </div>
+                    
+                    <div class="status status-success mb-md">
+                        <span class="status-dot"></span>
+                        <span>All Tests Passed</span>
+                    </div>
+                    
+                    <div class="status status-error mb-md">
+                        <span class="status-dot"></span>
+                        <span>Failure Detected</span>
+                    </div>
+                    
+                    <div class="status status-idle">
+                        <span class="status-dot"></span>
+                        <span>Squadron Idle</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4 class="mb-md">Progress Indicators</h4>
+                    <div class="mb-md">
+                        <div class="flex-between mb-sm">
+                            <span class="text-small">Test Execution</span>
+                            <span class="text-small">75%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex-between mb-sm">
+                            <span class="text-small">Coverage</span>
+                            <span class="text-small">92%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- BADGES -->
+        <section class="section">
+            <h2>Badges & Tags</h2>
+            <p class="mb-lg">Compact labels for status, categories, and metadata.</p>
+            
+            <div class="card">
+                <div class="flex gap-md flex-wrap">
+                    <span class="badge badge-yellow">Active</span>
+                    <span class="badge badge-success">Passed</span>
+                    <span class="badge badge-danger">Failed</span>
+                    <span class="badge badge-warning">Pending</span>
+                    <span class="badge badge-neutral">Idle</span>
+                    <span class="badge badge-outline">Draft</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CANARY SPECIFIC COMPONENTS -->
+        <section class="section">
+            <h2>Canary Flight Components</h2>
+            <p class="mb-lg">Unique visual elements for the parallel testing metaphor.</p>
+            
+            <div class="card mb-lg">
+                <h4 class="mb-md">Flight Path Animation</h4>
+                <p class="text-small mb-md">Visualizes active test execution</p>
+                <div class="flight-path">
+                    <div class="canary-icon">🐤</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h4 class="mb-md">Squadron Status Grid</h4>
+                <p class="text-small mb-md">Shows the status of all canaries in the flock</p>
+                <div class="squadron-grid">
+                    <div class="canary-unit active">🐤</div>
+                    <div class="canary-unit active">🐤</div>
+                    <div class="canary-unit success">✓</div>
+                    <div class="canary-unit success">✓</div>
+                    <div class="canary-unit error">✕</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- TABLES -->
+        <section class="section">
+            <h2>Data Tables</h2>
+            <p class="mb-lg">Structured data presentation with clear hierarchy.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test Name</th>
+                            <th>Status</th>
+                            <th>Duration</th>
+                            <th>Browser</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Login Flow Test</td>
+                            <td><span class="badge badge-success">Passed</span></td>
+                            <td>2.3s</td>
+                            <td>Chrome</td>
+                            <td><button class="btn btn-ghost btn-small">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>Checkout Process</td>
+                            <td><span class="badge badge-danger">Failed</span></td>
+                            <td>5.1s</td>
+                            <td>Firefox</td>
+                            <td><button class="btn btn-ghost btn-small">Debug</button></td>
+                        </tr>
+                        <tr>
+                            <td>Search Functionality</td>
+                            <td><span class="badge badge-success">Passed</span></td>
+                            <td>1.8s</td>
+                            <td>Safari</td>
+                            <td><button class="btn btn-ghost btn-small">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>Form Validation</td>
+                            <td><span class="badge badge-warning">Running</span></td>
+                            <td>-</td>
+                            <td>Edge</td>
+                            <td><button class="btn btn-ghost btn-small" disabled>Wait</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- LOADING STATES -->
+        <section class="section">
+            <h2>Loading States</h2>
+            <p class="mb-lg">Visual feedback during asynchronous operations.</p>
+            
+            <div class="grid grid-2">
+                <div class="card flex-center" style="min-height: 200px;">
+                    <div>
+                        <div class="spinner"></div>
+                        <p class="text-center mt-md text-small">Deploying squadron...</p>
+                    </div>
+                </div>
+                
+                <div class="card flex-center" style="min-height: 200px;">
+                    <div>
+                        <div class="loading-dots">
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                        </div>
+                        <p class="text-center mt-md text-small">Running tests</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CODE BLOCKS -->
+        <section class="section">
+            <h2>Code Display</h2>
+            <p class="mb-lg">Syntax highlighting and inline code snippets.</p>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <h4 class="mb-md">Code Block</h4>
+                    <div class="code-block">
+                        <code>// Deploy the squadron
+const canary = new CanaryTest();
+
+await canary.deploy({
+  browsers: ['chrome', 'firefox'],
+  parallel: true,
+  screenshots: true
+});
+
+console.log('Squadron deployed!');</code>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4 class="mb-md">Inline Code</h4>
+                    <p>Use the <code class="code-inline">deploy()</code> method to launch your test squadron. Configure options like <code class="code-inline">parallel: true</code> to run tests simultaneously across multiple browsers.</p>
+                    
+                    <p class="mt-lg">The <code class="code-inline">CanaryTest</code> class handles browser automation, screenshot capture, and result reporting automatically.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SPACING EXAMPLES -->
+        <section class="section">
+            <h2>Spacing System</h2>
+            <p class="mb-lg">Consistent spacing scale using CSS variables.</p>
+            
+            <div class="card">
+                <div class="code-block">
+                    <code>--space-xs: 0.25rem;  /* 4px */
+--space-sm: 0.5rem;   /* 8px */
+--space-md: 1rem;     /* 16px */
+--space-lg: 1.5rem;   /* 24px */
+--space-xl: 2rem;     /* 32px */
+--space-2xl: 3rem;    /* 48px */
+--space-3xl: 4rem;    /* 64px */</code>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FOOTER -->
+        <section class="section text-center">
+            <div style="height: 2px; background: var(--canary-yellow); margin: var(--space-2xl) auto; max-width: 200px;"></div>
+            <p class="text-small" style="color: var(--text-tertiary);">
+                Canary Design System v1.0 • Built for parallel testing at scale
+            </p>
+            <div class="flex-center gap-md mt-md">
+                <span class="badge badge-outline">Industrial</span>
+                <span class="badge badge-outline">Distinctive</span>
+                <span class="badge badge-outline">Fast</span>
+            </div>
+        </section>
+        
+    </div>
+    
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeText = document.getElementById('theme-text');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeText.textContent = 'Light Mode';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+    </script>
+    
+</body>
+</html>

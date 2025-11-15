@@ -1,0 +1,65 @@
+{
+  "stageName": "Initial Load Testing",
+  "stageNumber": 1,
+  "description": "Verify the application loads correctly without critical errors",
+  "targetUrl": "https://buy-time-978217061957.us-west1.run.app/",
+  "microTasks": [
+    {
+      "id": "page-load-check",
+      "name": "Page Load Verification",
+      "file": "01-page-load-check.txt",
+      "severity": "CRITICAL",
+      "terminateOnFailure": true,
+      "maxSteps": 3,
+      "description": "Verify page loaded without 404/500/network errors"
+    },
+    {
+      "id": "extract-title",
+      "name": "Page Title Extraction",
+      "file": "02-extract-title.txt",
+      "severity": "INFO",
+      "terminateOnFailure": false,
+      "maxSteps": 3,
+      "description": "Extract and validate page title"
+    },
+    {
+      "id": "find-headings",
+      "name": "Heading Structure Analysis",
+      "file": "03-find-headings.txt",
+      "severity": "INFO",
+      "terminateOnFailure": false,
+      "maxSteps": 5,
+      "description": "Find all headings and verify structure"
+    },
+    {
+      "id": "identify-sections",
+      "name": "Visible Sections Identification",
+      "file": "04-identify-sections.txt",
+      "severity": "INFO",
+      "terminateOnFailure": false,
+      "maxSteps": 5,
+      "description": "Identify main page sections"
+    },
+    {
+      "id": "console-errors",
+      "name": "Console Error Detection",
+      "file": "05-console-errors.txt",
+      "severity": "MEDIUM",
+      "terminateOnFailure": false,
+      "maxSteps": 3,
+      "description": "Check browser console for errors"
+    },
+    {
+      "id": "visual-problems",
+      "name": "Visual Problem Detection",
+      "file": "06-visual-problems.txt",
+      "severity": "HIGH",
+      "terminateOnFailure": false,
+      "maxSteps": 8,
+      "description": "Detect critical layout/visual issues"
+    }
+  ],
+  "expectedDuration": "30-45 seconds",
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-15"
+}

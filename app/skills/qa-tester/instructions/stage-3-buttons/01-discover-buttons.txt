@@ -1,0 +1,153 @@
+---
+title = "Button Discovery"
+version = "1.0.0"
+description = "Find and catalog all buttons and interactive elements on the page"
+taskId = "discover-buttons"
+severity = "INFO"
+terminatesOnFailure = false
+---
+
+# Micro-Task: Button Discovery
+
+**Task ID:** `discover-buttons`
+**Severity:** INFO
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Find all buttons and interactive elements on the page to understand what needs to be tested.
+
+---
+
+## What to Do
+
+1. **Find all button elements:**
+   - Look for `<button>` elements
+   - Look for elements with role="button"
+   - Exclude navigation links (those were tested in Stage 2)
+
+2. **Categorize buttons by type:**
+   - **Primary actions:** Submit, Save, Checkout, Buy Now, Sign Up, etc.
+   - **Modal triggers:** Buttons that open popups/dialogs (e.g., "Learn More", "View Details")
+   - **Toggle buttons:** Show/Hide, Expand/Collapse, Read More, etc.
+   - **Disabled buttons:** Buttons that are currently disabled/inactive
+
+3. **Note button locations:**
+   - Where on the page is each button?
+   - Is it always visible or do you need to scroll?
+
+---
+
+## Definition of Done
+
+You've successfully cataloged:
+- ✅ All buttons found on the page
+- ✅ Buttons categorized by type
+- ✅ Total count of each button type
+- ✅ Note if there are no buttons (some pages might only have links)
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON.**
+
+```json
+{
+  "success": true,
+  "totalButtons": 8,
+  "primaryActions": ["Submit Form", "Buy Now", "Get Started"],
+  "modalTriggers": ["Learn More", "View Details"],
+  "toggleButtons": ["Show More", "Expand FAQ"],
+  "disabledButtons": ["Subscribe (disabled)"],
+  "otherButtons": [],
+  "hasButtons": true
+}
+```
+
+---
+
+## Field Definitions
+
+- **success**: Always `true` (this is just discovery, can't fail)
+- **totalButtons**: Total count of all buttons found
+- **primaryActions**: Array of primary action button texts
+- **modalTriggers**: Array of buttons that open modals/dialogs
+- **toggleButtons**: Array of toggle/expand/collapse buttons
+- **disabledButtons**: Array of currently disabled button texts
+- **otherButtons**: Array of other buttons that don't fit categories
+- **hasButtons**: `true` if any buttons found, `false` if none
+- **painPoint**: (optional) Note if anything was confusing
+
+---
+
+## Examples
+
+### Example 1: Page with various buttons
+```json
+{
+  "success": true,
+  "totalButtons": 6,
+  "primaryActions": ["Contact Us", "Get Quote"],
+  "modalTriggers": ["Watch Video", "See Pricing"],
+  "toggleButtons": ["Show Details"],
+  "disabledButtons": ["Submit (disabled - form incomplete)"],
+  "otherButtons": [],
+  "hasButtons": true
+}
+```
+
+### Example 2: Page with no buttons (only links)
+```json
+{
+  "success": true,
+  "totalButtons": 0,
+  "primaryActions": [],
+  "modalTriggers": [],
+  "toggleButtons": [],
+  "disabledButtons": [],
+  "otherButtons": [],
+  "hasButtons": false
+}
+```
+
+### Example 3: Simple page with one primary button
+```json
+{
+  "success": true,
+  "totalButtons": 1,
+  "primaryActions": ["Sign Up"],
+  "modalTriggers": [],
+  "toggleButtons": [],
+  "disabledButtons": [],
+  "otherButtons": [],
+  "hasButtons": true
+}
+```
+
+---
+
+## Important Notes
+
+- **Buttons vs Links:**
+  - Buttons perform actions (submit, open modal, toggle)
+  - Links navigate to pages (tested in Stage 2)
+  - Only catalog buttons here
+
+- **Disabled buttons:**
+  - Note them but don't try to click yet
+  - We'll test them in task 05
+
+- **Don't click yet:**
+  - This is discovery only
+  - Just catalog what exists
+
+- **Use ariaTree:**
+  - Efficiently find all button elements
+  - Check role="button" attributes
+
+---
+
+## Time Estimate
+Expected completion: 10-20 seconds

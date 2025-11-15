@@ -1,0 +1,40 @@
+---
+title = "Instruction Feedback Schema"
+version = "1.0.0"
+description = "Common schema for agent feedback on instruction quality"
+---
+## Instruction Feedback
+
+Always include this in your response to help improve instructions:
+
+```json
+{
+  "instructionFeedback": {
+    "clarity": "CLEAR" | "UNCLEAR" | "AMBIGUOUS",
+    "completeness": "COMPLETE" | "MISSING_DETAILS" | "TOO_VERBOSE",
+    "issues": [
+      {
+        "type": "UNCLEAR_INSTRUCTION" | "MISSING_STEP" | "WRONG_EXAMPLE" | "OUTDATED" | "INCORRECT",
+        "location": "section name or line",
+        "description": "what was wrong",
+        "suggestion": "how to fix it"
+      }
+    ],
+    "improvements": [
+      {
+        "type": "ADD_CHECK" | "CLARIFY_STEP" | "ADD_EXAMPLE" | "SIMPLIFY" | "REORGANIZE",
+        "description": "what could be better",
+        "suggestedChange": "specific change to make"
+      }
+    ]
+  }
+}
+```
+
+**Fields:**
+- **clarity**: Were instructions clear?
+- **completeness**: Right amount of detail?
+- **issues**: Problems you encountered (array)
+- **improvements**: Suggestions for next version (array)
+
+**Be honest** - if instructions were unclear, confusing, or missing steps, report it. This helps improve the system.

@@ -1,0 +1,100 @@
+---
+title = "Console Error Detection"
+version = "2.0.0"
+description = "Analyze browser console messages for JavaScript errors and warnings"
+taskId = "console-errors"
+severity = "MEDIUM"
+terminatesOnFailure = false
+---
+# Micro-Task: Console Error Detection
+
+**Task ID:** `console-errors`
+**Severity:** MEDIUM
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Analyze captured browser console messages for JavaScript errors and warnings.
+
+---
+
+## What to Do
+1. Review the CAPTURED CONSOLE MESSAGES section below (provided automatically)
+2. Count total number of errors (type: "error")
+3. Count warnings (type: "warning")
+4. Extract first 3-5 error messages with their text
+5. Classify severity:
+   - CRITICAL: Database failures, network errors, app crashes
+   - HIGH: Failed API calls, missing resources
+   - MEDIUM: Deprecation warnings, non-critical failures
+   - LOW: Info messages, debug output
+
+**Note:** Console messages are captured automatically by the test runner using `page.on("console")` listener.
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON. DO NOT include any explanatory text before or after the JSON.**
+
+```json
+{
+  "success": true,
+  "errorCount": 0,
+  "warningCount": 0,
+  "errors": [
+    {
+      "type": "error",
+      "message": "Error message text",
+      "severity": "CRITICAL" | "HIGH" | "MEDIUM" | "LOW"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "warning",
+      "message": "Warning message text"
+    }
+  ],
+  "hasCriticalErrors": false,
+  "serverLogs": null,
+  "notes": "No console errors detected",
+  "painPoint": "Optional: 1-sentence note if task was confusing"
+}
+```
+
+---
+
+## Server Log Retrieval (CRITICAL ERRORS ONLY)
+
+**If you find CRITICAL errors (app crashes, database failures, network errors):**
+
+1. Retrieve server logs from `{hostname}/_logs.txt`
+2. Extract the last 100 rows of logs
+3. Include them in the `serverLogs` field as a string
+4. If `/_logs.txt` is not accessible, set `serverLogs: "NOT_ACCESSIBLE"`
+
+**Example with server logs:**
+```json
+{
+  "success": false,
+  "errorCount": 2,
+  "warningCount": 0,
+  "errors": [
+    {
+      "type": "error",
+      "message": "Failed to fetch /api/data: 500 Internal Server Error",
+      "severity": "CRITICAL"
+    }
+  ],
+  "warnings": [],
+  "hasCriticalErrors": true,
+  "serverLogs": "[Server log content from /_logs.txt - last 100 rows]",
+  "notes": "Critical API failure detected, server logs retrieved"
+}
+```
+
+---
+
+## Time Estimate
+5-15 seconds (longer if server logs need retrieval)

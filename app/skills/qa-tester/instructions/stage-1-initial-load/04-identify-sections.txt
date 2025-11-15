@@ -1,0 +1,49 @@
+---
+title = "Visible Sections Identification"
+version = "1.0.0"
+description = "Identify the main sections/regions visible on the page"
+taskId = "identify-sections"
+severity = "INFO"
+terminatesOnFailure = false
+---
+# Micro-Task: Visible Sections Identification
+
+**Task ID:** `identify-sections`
+**Severity:** INFO
+**Terminates on Failure:** NO
+
+---
+
+## Objective
+Identify the main sections/regions visible on the page.
+
+---
+
+## What to Do
+1. Use the `observe` tool to scan the page and identify major sections (header, hero, content areas, footer, etc.)
+2. For each section, use `observe` to extract a brief description of what it contains (visible text, elements, purpose)
+
+---
+
+## Return Format
+
+**IMPORTANT: YOU MUST RETURN ONLY VALID JSON. DO NOT include any explanatory text before or after the JSON.**
+
+```json
+{
+  "success": true,
+  "sections": [
+    "Navigation header with logo and menu links",
+    "Hero section with main heading and CTA button",
+    "Footer with copyright"
+  ],
+  "totalSections": 3,
+  "notes": "Page well-organized with clear sections",
+  "painPoint": "Optional: 1-sentence note if task was confusing"
+}
+```
+
+---
+
+## Time Estimate
+5-10 seconds

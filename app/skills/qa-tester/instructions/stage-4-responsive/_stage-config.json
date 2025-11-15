@@ -1,0 +1,47 @@
+{
+  "stageName": "Responsive & Viewport Testing",
+  "stageNumber": 4,
+  "description": "Verify website works correctly on different screen sizes (mobile, tablet, desktop)",
+  "targetUrl": "https://buy-time-978217061957.us-west1.run.app/",
+  "microTasks": [
+    {
+      "id": "test-mobile-viewport",
+      "name": "Mobile Viewport Testing",
+      "file": "01-test-mobile-viewport.txt",
+      "severity": "HIGH",
+      "terminateOnFailure": false,
+      "maxSteps": 10,
+      "description": "Test website at mobile viewport (375x667 - iPhone SE)"
+    },
+    {
+      "id": "test-tablet-viewport",
+      "name": "Tablet Viewport Testing",
+      "file": "02-test-tablet-viewport.txt",
+      "severity": "MEDIUM",
+      "terminateOnFailure": false,
+      "maxSteps": 8,
+      "description": "Test website at tablet viewport (768x1024 - iPad)"
+    },
+    {
+      "id": "test-desktop-viewport",
+      "name": "Desktop Viewport Testing",
+      "file": "03-test-desktop-viewport.txt",
+      "severity": "LOW",
+      "terminateOnFailure": false,
+      "maxSteps": 6,
+      "description": "Test website at large desktop viewport (1920x1080)"
+    },
+    {
+      "id": "test-mobile-navigation",
+      "name": "Mobile Navigation Testing",
+      "file": "04-test-mobile-navigation.txt",
+      "severity": "HIGH",
+      "terminateOnFailure": false,
+      "maxSteps": 10,
+      "description": "Test mobile-specific navigation (hamburger menu)"
+    }
+  ],
+  "expectedDuration": "1-2 minutes",
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-15"
+}
