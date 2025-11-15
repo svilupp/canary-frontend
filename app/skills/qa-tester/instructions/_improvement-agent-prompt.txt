@@ -1,6 +1,6 @@
 ---
 title = "QA Process Improvement Agent"
-version = "1.0.0"
+version = "1.1.0"
 description = "Analyzes browsing histories and instructions to identify improvement opportunities"
 author = "System"
 ---

@@ -15,4 +15,5 @@ export default [
   route("changelog", "routes/changelog.tsx"),
   route("skills", "routes/skills.tsx"),
   route("kill-app", "routes/kill-app.tsx"),
+  route("logs-clear", "routes/logs-clear.tsx"),
 ] satisfies RouteConfig;

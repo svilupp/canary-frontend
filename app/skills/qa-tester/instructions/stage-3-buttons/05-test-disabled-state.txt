@@ -1,6 +1,6 @@
 ---
 title = "Disabled Button State Testing"
-version = "1.0.0"
+version = "1.2.0"
 description = "Verify that disabled buttons don't respond to clicks"
 taskId = "test-disabled-state"
 severity = "LOW"

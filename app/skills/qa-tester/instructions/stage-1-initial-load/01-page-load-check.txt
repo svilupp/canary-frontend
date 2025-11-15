@@ -1,6 +1,6 @@
 ---
 title = "Page Load Verification"
-version = "2.0.0"
+version = "3.0.0"
 description = "Verify that the web page loaded successfully without critical errors like 404, 500, or network failures"
 taskId = "page-load-check"
 severity = "CRITICAL"

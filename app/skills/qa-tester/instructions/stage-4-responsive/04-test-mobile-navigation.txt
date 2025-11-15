@@ -1,6 +1,6 @@
 ---
 title = "Mobile Navigation Testing"
-version = "1.0.0"
+version = "1.3.0"
 description = "Test mobile-specific navigation patterns (hamburger menu)"
 taskId = "test-mobile-navigation"
 severity = "HIGH"

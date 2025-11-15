@@ -1,6 +1,6 @@
 ---
 title = "Footer Navigation Testing"
-version = "1.0.0"
+version = "2.0.0"
 description = "Test that all footer navigation links work correctly"
 taskId = "test-footer-nav"
 severity = "MEDIUM"

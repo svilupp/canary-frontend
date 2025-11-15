@@ -1,6 +1,6 @@
 ---
 title = "Navigation Discovery"
-version = "1.0.0"
+version = "1.2.0"
 description = "Find and catalog all navigation elements on the page"
 taskId = "discover-nav-elements"
 severity = "INFO"

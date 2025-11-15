@@ -1,6 +1,6 @@
 ---
 title = "Primary Action Button Testing"
-version = "1.0.0"
+version = "2.1.0"
 description = "Test that main action buttons work correctly (submit, save, checkout, etc.)"
 taskId = "test-primary-actions"
 severity = "CRITICAL"

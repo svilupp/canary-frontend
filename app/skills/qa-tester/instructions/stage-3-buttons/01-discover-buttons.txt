@@ -1,6 +1,6 @@
 ---
 title = "Button Discovery"
-version = "1.0.0"
+version = "2.0.0"
 description = "Find and catalog all buttons and interactive elements on the page"
 taskId = "discover-buttons"
 severity = "INFO"

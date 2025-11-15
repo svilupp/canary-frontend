@@ -1,6 +1,6 @@
 ---
 title = "Toggle Button Testing"
-version = "1.0.0"
+version = "1.1.0"
 description = "Test toggle, expand/collapse, and show/hide buttons"
 taskId = "test-toggle-buttons"
 severity = "LOW"
