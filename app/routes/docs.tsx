@@ -25,10 +25,22 @@ export default function Docs() {
       <section id="quick-start" className="mb-16">
         <h2 className="text-3xl font-bold mb-6 uppercase">Quick Start</h2>
 
-        <div className="mb-8">
+        <div className="mb-8 p-4 bg-blue-500/10 border-l-4 border-blue-500">
           <h3 className="text-xl font-bold mb-3 uppercase">Before You Fly</h3>
           <p className="mb-4">
-            Before running Canary tests, instrument your app to expose server logs:
+            First, sync the Canary testing tool from <a href="https://github.com/svilupp/canary-app" className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer">github.com/svilupp/canary-app</a> (unpublished, in development):
+          </p>
+
+          <div className="bg-gray-900 p-4 rounded mb-4">
+            <pre className="text-sm text-gray-300">
+{`git clone https://github.com/svilupp/canary-app.git
+cd canary-app
+npm install`}
+            </pre>
+          </div>
+
+          <p className="mb-4">
+            Then, instrument your app to expose server logs before running Canary tests:
           </p>
 
           <div className="bg-gray-900 p-4 rounded mb-4">
@@ -214,13 +226,6 @@ npm run qa -- --url https://staging.example.com`}
               </pre>
             </div>
           </div>
-        </div>
-
-        <div className="p-4 bg-green-500/10 border-l-4 border-green-500">
-          <p className="text-sm font-semibold uppercase mb-2">Pro Tip</p>
-          <p className="text-sm">
-            For detailed implementation guide, see <code>LOGGING_SKILL.md</code> in the repo. Includes client-side logging, KV setup, and security considerations.
-          </p>
         </div>
       </section>
 
