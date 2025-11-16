@@ -73,15 +73,16 @@ export default function Home() {
               AI agents patrol your app in parallel—testing checkout flows, auth systems, and that button you built at 4am. Deploy the flock, own the demo.
             </p>
 
-            <div className="hero-cta">
-              <a href="#start" className="btn btn-primary btn-large">Deploy Your Squadron (Free Trial)</a>
-              <a href="#demo" className="btn btn-outline btn-large">Watch It Work</a>
+            <div className="hero-cta" style={{ marginBottom: 'var(--spacing-md)' }}>
+              <Link to="/docs" className="btn btn-primary btn-large">Deploy Your Squadron (For Free)</Link>
+              <a href="#testimonials" className="btn btn-outline btn-large">See Totally Real Reviews</a>
             </div>
 
             <img
               src="/canary-front.png"
               alt="Canary squadron mascot ready to test your application"
               className="hero-mascot"
+              style={{ marginTop: 'var(--spacing-md)' }}
             />
 
             <p className="hero-caption">
@@ -245,16 +246,19 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
-        <section className="section">
+        <section id="testimonials" className="section">
           <div className="container">
-            <h2 className="text-center">SQUADRON DEPLOYED. HAIR SAVED.</h2>
+            <h2 className="text-center">TOTALLY REAL TESTIMONIALS*</h2>
+            <p className="text-center" style={{ fontSize: '0.9rem', color: 'var(--text-tertiary)', marginTop: 'var(--spacing-sm)', marginBottom: 'var(--spacing-lg)' }}>
+              *We made these up. But you'll say the same things once you deploy the flock.
+            </p>
 
             <div className="grid grid-3 mt-xl">
               <div className="testimonial-card">
                 <div className="testimonial-avatar flex-center" style={{ background: 'var(--color-steel-light)', fontSize: '2rem' }}>
                   👨‍💻
                 </div>
-                <h4 className="testimonial-name">Marcus Chen</h4>
+                <h4 className="testimonial-name">Marcus "Definitely Real" Chen</h4>
                 <p className="testimonial-title">Serial Hackathon Winner</p>
                 <p className="testimonial-quote">
                   "This has genuinely improved my hair loss problem. During hackathons, I used to pull my hair out when the app broke 2 minutes before submission. Now my canaries catch everything while I'm perfecting the pitch deck. 10/10 for my follicles."
@@ -266,7 +270,7 @@ export default function Home() {
                 <div className="testimonial-avatar flex-center" style={{ background: 'var(--color-steel-light)', fontSize: '2rem' }}>
                   👩‍💻
                 </div>
-                <h4 className="testimonial-name">Sarah Rodriguez</h4>
+                <h4 className="testimonial-name">Sarah "Not AI" Rodriguez</h4>
                 <p className="testimonial-title">Indie Hacker & Founder</p>
                 <p className="testimonial-quote">
                   "Even when I was doing testing myself, I could only check a few buttons before shipping. It didn't scale. Now with my Yellow Canary fleet, I have tens of tests running in parallel. I actually sleep at night knowing my payment flow works."
@@ -278,7 +282,7 @@ export default function Home() {
                 <div className="testimonial-avatar flex-center" style={{ background: 'var(--color-steel-light)', fontSize: '2rem' }}>
                   🎨
                 </div>
-                <h4 className="testimonial-name">Alex Kim</h4>
+                <h4 className="testimonial-name">Alex "Actual Person" Kim</h4>
                 <p className="testimonial-title">Product Designer</p>
                 <p className="testimonial-quote">
                   "I don't really know what this does, but the yellow canaries are super cute and my dev team keeps saying it saves them hours. That's a win in my book. Also, can I get canary stickers?"
@@ -306,7 +310,7 @@ export default function Home() {
               </p>
 
               <div className="hero-cta">
-                <a href="#start" className="btn btn-primary btn-large">Start Free Trial</a>
+                <Link to="/docs" className="btn btn-primary btn-large">Start Free Trial</Link>
                 <Link to="/docs#quick-start" className="btn btn-secondary btn-large">Quick Start Guide</Link>
               </div>
 
